@@ -8,6 +8,7 @@ import Graphics from './pages/Graphics';
 import Development from './pages/Development';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import 'github-markdown-css/github-markdown-dark.css'; // or github-markdown-light.css
 
 export default function App() {
   return (
