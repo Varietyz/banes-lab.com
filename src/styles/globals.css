@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+   1) Slide In from Bottom (shorter distance = smoother)
+   We also use a slightly faster, more refined easing.
+*/
+@keyframes fadeInUpLarge {
+  0% {
+    transform: translateY(80px);
+
+  }
+  100% {
+    transform: translateY(0);
+
+  }
+}
+.animate-fadeInUpLarge {
+  animation: fadeInUpLarge 0.4s ease forwards;
+}
+
+
+
+.bg-global {
+  background-image: url('/assets/images/Background.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Hides scrollbars across browsers without disabling scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+html, body {
+  /* Force no scrolling on the browser window itself */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; 
+}
+
+/* Main layout container to enforce footer at bottom */
+.layout {
+  min-height: 100vh; /* viewport height ensures footer sticks */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Your main content area */
+.content {
+  flex-grow: 1; /* expands to fill space, pushing footer down */
+}
+
+/* Footer styling stays at bottom */
+.footer {
+  flex-shrink: 0; /* prevents footer shrinking */
+}
