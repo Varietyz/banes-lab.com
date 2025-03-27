@@ -9,13 +9,13 @@ module.exports = {
       colors: {
         gold: '#cea555',
         dark: '#101010',
-        accent: '#cea555',
+        accent: '#cea555'
       },
       fontFamily: {
         heading: ['Cinzel', 'serif'],
-        body: ['Montserrat', 'sans-serif'],
+        body: ['Montserrat', 'sans-serif']
       },
-      typography: (theme) => ({
+      typography: theme => ({
         invert: {
           css: {
             '--tw-prose-body': theme('colors.white'),
@@ -32,11 +32,11 @@ module.exports = {
             '--tw-prose-pre-bg': theme('colors.zinc.900'),
             '--tw-prose-pre-code': theme('colors.white'),
             '--tw-prose-th-borders': theme('colors.gray.600'),
-            '--tw-prose-td-borders': theme('colors.gray.700'),
-          },
-        },
-      }),
-    },
+            '--tw-prose-td-borders': theme('colors.gray.700')
+          }
+        }
+      })
+    }
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography')]
 };

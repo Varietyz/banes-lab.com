@@ -6,7 +6,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import '../styles/markdown.css';
 
-
+/**
+ *
+ */
 export default function Development() {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,25 +21,25 @@ export default function Development() {
 
   useEffect(() => {
     fetchRepos('Varietyz', includedPublicRepos)
-      .then((fetchedRepos) => {
+      .then(fetchedRepos => {
         setRepos([...fetchedRepos, ...privateRepos]);
       })
       .catch(setError)
       .finally(() => setLoading(false));
   }, []);
 
-  const handleCardClick = async (repo) => {
+  const handleCardClick = async repo => {
     setSelectedRepo(repo);
     setReadmeLoading(true);
-  
+
     try {
       const localPath = `/data/readmes/${repo.name}.md`;
       const res = await fetch(localPath);
-  
+
       if (!res.ok) {
         throw new Error(`Failed to load README from ${localPath}`);
       }
-  
+
       const text = await res.text();
       setReadmeContent(text);
     } catch (err) {
@@ -47,9 +49,6 @@ export default function Development() {
       setReadmeLoading(false);
     }
   };
-  
-  
-  
 
   const closeModal = () => {
     setSelectedRepo(null);
@@ -61,7 +60,11 @@ export default function Development() {
   }
 
   if (error) {
-    return <div className="text-center text-red-500 mt-20">Error loading repositories: {error.message}</div>;
+    return (
+      <div className="text-center text-red-500 mt-20">
+        Error loading repositories: {error.message}
+      </div>
+    );
   }
 
   return (
@@ -73,7 +76,7 @@ export default function Development() {
         <div className="border-b-2 border-gold w-24 mx-auto mb-8" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {repos.map((repo) => (
+          {repos.map(repo => (
             <RepositoryCard key={repo.id} repo={repo} onClick={handleCardClick} />
           ))}
         </div>
@@ -82,19 +85,18 @@ export default function Development() {
       {/* Markdown Modal */}
       {selectedRepo && (
         <div
-        className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
-        onClick={closeModal} // 🧠 click anywhere outside the modal
-      >
-        <div
-          className="bg-dark text-white max-w-3xl w-full max-h-[80vh] overflow-y-auto no-scrollbar rounded-xl p-6 relative"
-          onClick={(e) => e.stopPropagation()} // 🛑 prevent modal from closing when clicking inside
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={closeModal} // 🧠 click anywhere outside the modal
         >
-          <button
-            onClick={closeModal}
-            className="absolute top-3 right-4 text-white text-2xl font-bold"
+          <div
+            className="bg-dark text-white max-w-3xl w-full max-h-[80vh] overflow-y-auto no-scrollbar rounded-xl p-6 relative"
+            onClick={e => e.stopPropagation()} // 🛑 prevent modal from closing when clicking inside
           >
-            &times;
-          </button>
+            <button
+              onClick={closeModal}
+              className="absolute top-3 right-4 text-white text-2xl font-bold">
+              &times;
+            </button>
 
             <h3 className="text-2xl font-heading text-gold mb-4">
               {selectedRepo.name} – README.md
@@ -103,14 +105,10 @@ export default function Development() {
             {readmeLoading ? (
               <div className="text-center text-gold">Loading README...</div>
             ) : (
-            <div className="markdown-body bg-dark text-white p-6 rounded-md">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {readmeContent}
-              </ReactMarkdown>
-            </div>
-
+              <div className="markdown-body bg-dark text-white p-6 rounded-md">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{readmeContent}</ReactMarkdown>
+              </div>
             )}
-
           </div>
         </div>
       )}

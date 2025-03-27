@@ -9,18 +9,14 @@
 @keyframes fadeInUpLarge {
   0% {
     transform: translateY(80px);
-
   }
   100% {
     transform: translateY(0);
-
   }
 }
 .animate-fadeInUpLarge {
   animation: fadeInUpLarge 0.4s ease forwards;
 }
-
-
 
 .bg-global {
   background-image: url('/assets/images/Background.png');
@@ -35,15 +31,16 @@
 
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  scrollbar-width: none; /* Firefox */
 }
 
-html, body {
+html,
+body {
   /* Force no scrolling on the browser window itself */
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* Main layout container to enforce footer at bottom */

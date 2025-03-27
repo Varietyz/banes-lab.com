@@ -17,15 +17,13 @@ export default function Navbar() {
         flex
         items-center
         justify-center
-      "
-    >
+      ">
       {/* Navbar links, etc. */}
-      {['Home', 'Graphics', 'Development', 'About', 'Contact'].map((item) => (
+      {['Home', 'Graphics', 'Development', 'About', 'Contact'].map(item => (
         <Link
           key={item}
           to={`/${item === 'Home' ? '' : item.toLowerCase()}`}
-          className="text-gold hover:text-accent font-body font-semibold mx-4"
-        >
+          className="text-gold hover:text-accent font-body font-semibold mx-4">
           {item}
         </Link>
       ))}

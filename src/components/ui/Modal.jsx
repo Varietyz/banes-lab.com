@@ -3,6 +3,12 @@ import { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
+/**
+ *
+ * @param root0
+ * @param root0.project
+ * @param root0.onClose
+ */
 export default function Modal({ project, onClose }) {
   const [zoomed, setZoomed] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -10,19 +16,15 @@ export default function Modal({ project, onClose }) {
   if (!project) return null;
 
   // Use project.gallery if it exists and has more than one image; otherwise fallback to single image
-  const images =
-    project.gallery && project.gallery.length > 1
-      ? project.gallery
-      : [project.image];
+  const images = project.gallery && project.gallery.length > 1 ? project.gallery : [project.image];
 
   const sliderOptions = {
     slidesPerView: 1,
     spacing: 0,
-    slideChanged: (slider) => setActiveSlide(slider.track.details.rel),
+    slideChanged: slider => setActiveSlide(slider.track.details.rel)
   };
 
-  const [sliderRef, slider] =
-    images.length > 1 ? useKeenSlider(sliderOptions) : [null, null];
+  const [sliderRef, slider] = images.length > 1 ? useKeenSlider(sliderOptions) : [null, null];
 
   return (
     <>
@@ -30,8 +32,7 @@ export default function Modal({ project, onClose }) {
       {zoomed && (
         <div
           className="fixed inset-0 z-[999] bg-black bg-opacity-90 flex items-center justify-center cursor-zoom-out"
-          onClick={() => setZoomed(false)}
-        >
+          onClick={() => setZoomed(false)}>
           <img
             src={images[activeSlide]}
             alt={`${project.title} zoomed`}
@@ -43,12 +44,10 @@ export default function Modal({ project, onClose }) {
       {/* Main Modal Container */}
       <div
         className="fixed inset-0 z-[998] flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm px-4"
-        onClick={onClose}
-      >
+        onClick={onClose}>
         <div
           className="bg-dark rounded-lg max-w-3xl w-full p-6 relative shadow-xl text-white"
-          onClick={(e) => e.stopPropagation()}
-        >
+          onClick={e => e.stopPropagation()}>
           {images.length > 1 ? (
             <div className="relative">
               <div ref={sliderRef} className="keen-slider">
@@ -67,14 +66,12 @@ export default function Modal({ project, onClose }) {
                 <>
                   <button
                     onClick={() => slider.prev()}
-                    className="absolute top-1/2 left-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition"
-                  >
+                    className="absolute top-1/2 left-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition">
                     Prev
                   </button>
                   <button
                     onClick={() => slider.next()}
-                    className="absolute top-1/2 right-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition"
-                  >
+                    className="absolute top-1/2 right-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition">
                     Next
                   </button>
                 </>
@@ -105,8 +102,7 @@ export default function Modal({ project, onClose }) {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-2 px-6 py-2 bg-gold text-dark font-semibold rounded-full hover:bg-accent transition"
-            >
+              className="inline-block mt-2 px-6 py-2 bg-gold text-dark font-semibold rounded-full hover:bg-accent transition">
               View Project
             </a>
           )}

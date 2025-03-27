@@ -12,23 +12,23 @@ export default function Home() {
             alt="Varietyz Logo"
             className="w-40 h-40 mx-auto mb-6 rounded-full border border-gold shadow-md"
           />
-          <h2 className="text-4xl md:text-5xl font-heading text-gold mb-4">
-            Bane's Lab
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-heading text-gold mb-4">Bane's Lab</h2>
           <p className="text-lg md:text-xl text-white font-body mb-8">
-            Crafting unique, professional experiences across <span className="text-gold font-semibold">tech</span>, <span className="text-gold font-semibold">gaming</span>, <span className="text-gold font-semibold">corporate</span>, and <span className="text-gold font-semibold">creative</span> ventures.
+            Crafting unique, professional experiences across{' '}
+            <span className="text-gold font-semibold">tech</span>,{' '}
+            <span className="text-gold font-semibold">gaming</span>,{' '}
+            <span className="text-gold font-semibold">corporate</span>, and{' '}
+            <span className="text-gold font-semibold">creative</span> ventures.
           </p>
           <div className="flex justify-center gap-6 flex-wrap">
             <Link
               to="/graphics"
-              className="px-8 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300"
-            >
+              className="px-8 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
               Explore Graphics
             </Link>
             <Link
               to="/contact"
-              className="px-8 py-3 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-dark transition duration-300"
-            >
+              className="px-8 py-3 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-dark transition duration-300">
               Contact Me
             </Link>
           </div>
@@ -36,9 +36,7 @@ export default function Home() {
 
         {/* About Me Section - Personal & Professional */}
         <div className="w-full max-w-2xl mx-auto text-left bg-dark p-4 md:p-6 rounded-xl shadow-xl">
-          <h3 className="text-2xl md:text-3xl font-heading text-gold mb-2 text-center">
-            About Me
-          </h3>
+          <h3 className="text-2xl md:text-3xl font-heading text-gold mb-2 text-center">About Me</h3>
           <div className="border-b-2 border-gold w-12 mx-auto mb-4" />
           <div className="flex flex-col md:flex-row md:items-start md:gap-4">
             <div className="flex-shrink-0 mb-4 md:mb-0 mx-auto md:mx-0">
@@ -50,13 +48,30 @@ export default function Home() {
             </div>
             <div className="flex-grow text-white space-y-3 text-sm md:text-base">
               <p className="leading-relaxed">
-                Hey there, I'm <span className="text-gold font-semibold">Bane</span>. I'm a self-taught <span className="text-gold font-semibold">developer</span> and <span className="text-gold font-semibold">graphic designer</span> who's passionate about building things that look great and work even better. My specialty lies in crafting <span className="text-gold font-semibold">clean</span>, user-friendly interfaces and efficient code.
+                Hey there, I'm <span className="text-gold font-semibold">Bane</span>. I'm a
+                self-taught <span className="text-gold font-semibold">developer</span> and{' '}
+                <span className="text-gold font-semibold">graphic designer</span> who's passionate
+                about building things that look great and work even better. My specialty lies in
+                crafting <span className="text-gold font-semibold">clean</span>, user-friendly
+                interfaces and efficient code.
               </p>
               <p className="leading-relaxed">
-                Over the years, I've collaborated on a variety of projects, from <span className="text-gold font-semibold">gaming communities</span> and <span className="text-gold font-semibold">esports branding</span>, to designing custom applications for <span className="text-gold font-semibold">corporate clients</span>. I'm always focused on delivering results that combine <span className="text-gold font-semibold">creativity</span> and <span className="text-gold font-semibold">practicality</span>.
+                Over the years, I've collaborated on a variety of projects, from{' '}
+                <span className="text-gold font-semibold">gaming communities</span> and{' '}
+                <span className="text-gold font-semibold">esports branding</span>, to designing
+                custom applications for{' '}
+                <span className="text-gold font-semibold">corporate clients</span>. I'm always
+                focused on delivering results that combine{' '}
+                <span className="text-gold font-semibold">creativity</span> and{' '}
+                <span className="text-gold font-semibold">practicality</span>.
               </p>
               <p className="leading-relaxed">
-                I'm committed to continuous improvement, always diving into new technologies or design approaches to stay ahead of the curve. Whether it's developing intuitive user experiences or creating visually compelling designs, my goal is to produce <span className="text-gold font-semibold">impactful</span> and <span className="text-gold font-semibold">innovative</span> solutions that truly resonate.
+                I'm committed to continuous improvement, always diving into new technologies or
+                design approaches to stay ahead of the curve. Whether it's developing intuitive user
+                experiences or creating visually compelling designs, my goal is to produce{' '}
+                <span className="text-gold font-semibold">impactful</span> and{' '}
+                <span className="text-gold font-semibold">innovative</span> solutions that truly
+                resonate.
               </p>
             </div>
           </div>

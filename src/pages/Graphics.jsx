@@ -14,17 +14,23 @@ import {
   osrsRoseyrs,
   runeliteUI,
   osrsVarietyz,
-  elements,
+  elements
 } from '../data/graphicsData';
 
 /* ------------------------------------------------------------
   1) HELPER FUNCTIONS (Droptracker & Generic)
 ------------------------------------------------------------*/
+/**
+ *
+ * @param root0
+ * @param root0.basePath
+ * @param root0.fileName
+ */
 function createDroptrackerEntry({ basePath, fileName }) {
   // Example: Full_Pink_Halfrounded_Board => "Full Pink Halfrounded"
   const nameWithoutExt = fileName.replace(/\.(png|jpg|gif|jpeg)$/i, '');
   const isFull = nameWithoutExt.startsWith('Full_');
-  let processedName = nameWithoutExt.replace(/^Full_/, '').replace('_Board', '');
+  const processedName = nameWithoutExt.replace(/^Full_/, '').replace('_Board', '');
   const parts = processedName.split('_');
   const color = parts[0];
   const style = parts.slice(1).join(' ');
@@ -33,53 +39,58 @@ function createDroptrackerEntry({ basePath, fileName }) {
     title: `Droptracker UI – ${isFull ? 'Full ' : ''}${color} ${style}`,
     description: `A ${color.toLowerCase()} themed ${style.toLowerCase()} board design for Droptracker UI.`,
     image: `${basePath}/${fileName}`,
-    tags: ['Droptracker', 'UI Design', color, style],
+    tags: ['Droptracker', 'UI Design', color, style]
   };
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.basePath
+ * @param root0.fileName
+ * @param root0.prefix
+ * @param root0.extraTags
+ */
 function createGenericEntry({ basePath, fileName, prefix = '', extraTags = [] }) {
   // Example: enigma_banner.gif => "enigma banner"
   const name = fileName.replace(/\.(png|jpg|gif|jpeg)$/i, '');
-  const titlePart = name.split(/[_\/]/).join(' ');
+  const titlePart = name.split(/[_\\/]/).join(' ');
   const title = prefix ? `${prefix} – ${titlePart}` : titlePart;
-  const description = prefix
-    ? `${prefix} asset: ${titlePart}.`
-    : `Asset: ${titlePart}.`;
+  const description = prefix ? `${prefix} asset: ${titlePart}.` : `Asset: ${titlePart}.`;
   const tags = [...titlePart.split(' '), ...extraTags];
 
   return {
     title,
     description,
     image: `${basePath}/${fileName}`,
-    tags,
+    tags
   };
 }
-
 
 /* ------------------------------------------------------------
   3) GENERATE ARRAYS FOR EACH FOLDER
 ------------------------------------------------------------*/
 
 // C: Droptracker
-const droptrackerData = droptrackerFiles.files.map((file) =>
+const droptrackerData = droptrackerFiles.files.map(file =>
   createDroptrackerEntry({
     basePath: droptrackerFiles.basePath,
-    fileName: file,
+    fileName: file
   })
 );
 
 // D: Enigma Esports
-const enigmaRootData = enigmaRoot.files.map((file) =>
+const enigmaRootData = enigmaRoot.files.map(file =>
   createGenericEntry({
     basePath: enigmaRoot.basePath,
     fileName: file,
     prefix: 'Enigma Esports',
-    extraTags: ['Branding'],
+    extraTags: ['Branding']
   })
 );
 
 // E: Logos
-const logosData = logos.files.map((file) => {
+const logosData = logos.files.map(file => {
   let title;
   if (file.includes('enigma')) {
     title = 'Enigma Esports Logo';
@@ -93,87 +104,87 @@ const logosData = logos.files.map((file) => {
     title,
     description: `Logo asset: ${file.split('.')[0].split('_').join(' ')}`,
     image: `${logos.basePath}/${file}`,
-    tags: ['Logo'],
+    tags: ['Logo']
   };
 });
 
 // F: OSRS Avatars
-const osrsAvatarsData = osrsAvatars.files.map((file) =>
+const osrsAvatarsData = osrsAvatars.files.map(file =>
   createGenericEntry({
     basePath: osrsAvatars.basePath,
     fileName: file,
     prefix: 'OSRS Avatar',
-    extraTags: ['Avatar'],
+    extraTags: ['Avatar']
   })
 );
 
 // G: OSRS Bingo
-const osrsBingoData = osrsBingo.files.map((file) =>
+const osrsBingoData = osrsBingo.files.map(file =>
   createGenericEntry({
     basePath: osrsBingo.basePath,
     fileName: file,
     prefix: 'OSRS Bingo',
-    extraTags: ['Bingo'],
+    extraTags: ['Bingo']
   })
 );
 
 // H: RuneLite Theme
-const runeliteThemeData = runeliteTheme.files.map((file) =>
+const runeliteThemeData = runeliteTheme.files.map(file =>
   createGenericEntry({
     basePath: runeliteTheme.basePath,
     fileName: file,
     prefix: 'RuneLite Theme',
-    extraTags: ['RuneLite', 'Theme'],
+    extraTags: ['RuneLite', 'Theme']
   })
 );
 
 // I: Varietyz Deluxe
-const varietyzDeluxeData = varietyzDeluxe.files.map((file) =>
+const varietyzDeluxeData = varietyzDeluxe.files.map(file =>
   createGenericEntry({
     basePath: varietyzDeluxe.basePath,
     fileName: file,
     prefix: 'Varietyz Deluxe',
-    extraTags: ['Varietyz', 'Deluxe', 'Theme'],
+    extraTags: ['Varietyz', 'Deluxe', 'Theme']
   })
 );
 
 // J: OSRS Roseyrs
-const osrsRoseyrsData = osrsRoseyrs.files.map((file) =>
+const osrsRoseyrsData = osrsRoseyrs.files.map(file =>
   createGenericEntry({
     basePath: osrsRoseyrs.basePath,
     fileName: file,
     prefix: 'Roseyrs',
-    extraTags: ['Roseyrs', 'Branding'],
+    extraTags: ['Roseyrs', 'Branding']
   })
 );
 
 // K: RuneLite UI
-const runeliteUIData = runeliteUI.files.map((file) =>
+const runeliteUIData = runeliteUI.files.map(file =>
   createGenericEntry({
     basePath: runeliteUI.basePath,
     fileName: file,
     prefix: 'RuneLite UI',
-    extraTags: ['RuneLite', 'UI'],
+    extraTags: ['RuneLite', 'UI']
   })
 );
 
 // L: OSRS Varietyz
-const osrsVarietyzData = osrsVarietyz.files.map((file) =>
+const osrsVarietyzData = osrsVarietyz.files.map(file =>
   createGenericEntry({
     basePath: osrsVarietyz.basePath,
     fileName: file,
     prefix: 'Varietyz',
-    extraTags: ['Varietyz'],
+    extraTags: ['Varietyz']
   })
 );
 
 // N: Elements
-const elementsData = elements.files.map((file) =>
+const elementsData = elements.files.map(file =>
   createGenericEntry({
     basePath: elements.basePath,
     fileName: file,
     prefix: 'UI Elements',
-    extraTags: ['UI'],
+    extraTags: ['UI']
   })
 );
 
@@ -191,12 +202,18 @@ const galleries = [
   { name: 'RuneLite UI', data: runeliteUIData },
   { name: 'OSRS Bingo', data: osrsBingoData },
   { name: 'RuneLite Theme', data: runeliteThemeData },
-  { name: 'Varietyz Deluxe Theme', data: varietyzDeluxeData },
+  { name: 'Varietyz Deluxe Theme', data: varietyzDeluxeData }
 ];
 
 /* ------------------------------------------------------------
   5) GALLERY COMPONENT
 ------------------------------------------------------------*/
+/**
+ *
+ * @param root0
+ * @param root0.galleryName
+ * @param root0.items
+ */
 function Gallery({ galleryName, items }) {
   const [selected, setSelected] = useState(null);
   const [visibleCount, setVisibleCount] = useState(12);
@@ -212,7 +229,7 @@ function Gallery({ galleryName, items }) {
   // Which items to render
   const visibleItems = items.slice(0, visibleCount);
 
-  const loadMore = () => setVisibleCount((prev) => prev + 12);
+  const loadMore = () => setVisibleCount(prev => prev + 12);
 
   return (
     <section className="w-full px-4 py-6">
@@ -235,8 +252,7 @@ function Gallery({ galleryName, items }) {
               duration-300 
               cursor-pointer
             "
-            onClick={() => setSelected(project)}
-          >
+            onClick={() => setSelected(project)}>
             <img
               src={project.image}
               alt={project.title}
@@ -244,16 +260,11 @@ function Gallery({ galleryName, items }) {
               className="w-full h-32 object-cover"
             />
             <div className="p-4 text-white">
-              <h4 className="text-lg font-heading text-gold mb-1">
-                {project.title}
-              </h4>
+              <h4 className="text-lg font-heading text-gold mb-1">{project.title}</h4>
               <p className="text-xs font-body mb-2">{project.description}</p>
               <div className="flex flex-wrap gap-1 text-[10px] font-body">
                 {project.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-2 py-1 border border-gold rounded-full text-gold"
-                  >
+                  <span key={i} className="px-2 py-1 border border-gold rounded-full text-gold">
                     {tag}
                   </span>
                 ))}
@@ -267,8 +278,7 @@ function Gallery({ galleryName, items }) {
         <div className="text-center mt-6">
           <button
             onClick={loadMore}
-            className="px-4 py-2 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition"
-          >
+            className="px-4 py-2 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition">
             Load More
           </button>
         </div>
@@ -283,9 +293,13 @@ function Gallery({ galleryName, items }) {
 /* ------------------------------------------------------------
   6) ANIMATED GALLERY WRAPPER
 ------------------------------------------------------------*/
+/**
+ *
+ * @param root0
+ * @param root0.galleryObj
+ */
 function AnimatedGallery({ galleryObj }) {
   const [ref, isInView] = useInView({ threshold: 0.1 });
-  const scrollDirection = useScrollDirection();
 
   let animationClass;
   if (isInView) {
@@ -302,6 +316,9 @@ function AnimatedGallery({ galleryObj }) {
 /* ------------------------------------------------------------
   7) PORTFOLIO COMPONENT
 ------------------------------------------------------------*/
+/**
+ *
+ */
 export default function Graphic_Design() {
   return (
     <div className="h-[97vh] no-scrollbar overflow-y-auto pt-10 scroll-smooth">

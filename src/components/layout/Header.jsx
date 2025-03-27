@@ -16,8 +16,7 @@ export default function Header() {
         border-b 
         border-gold 
         z-50
-      "
-    >
+      ">
       {/* Header content here */}
     </header>
   );

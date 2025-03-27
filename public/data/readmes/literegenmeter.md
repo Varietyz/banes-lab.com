@@ -1,3 +1,5 @@
+[![](https://img.shields.io/endpoint?url=https://api.runelite.net/pluginhub/shields/installs/plugin/lite-regen-meter)](https://runelite.net/plugin-hub/show/lite-regen-meter)
+
 # Lite Regen Meter – Real-Time Stat Overlays & Orb Enhancements for RuneLite
 
 **Lite Regen Meter** is a performance-optimized RuneLite plugin designed to visualize hidden regeneration mechanics, enhance orb functionality, and provide fully modular, context-aware stat bar overlays for Old School RuneScape. Built with scalability, visual fidelity, and extensibility in mind, it exemplifies modern plugin architecture and deep integration with the RuneLite ecosystem.
@@ -25,15 +27,15 @@ Lite Regen Meter is structured around **loosely coupled, single-responsibility c
 
 ### Core Modules
 
-| Module | Description |
-|--------|-------------|
-| `LiteRegenMeterPlugin` | Core logic and lifecycle controller; hooks into game ticks, state, events, and plugin settings |
-| `LiteRegenMeterOverlay` | Renders horizontal health and spec regen bars beneath minimap orbs |
-| `LiteStatBarsOverlay` | Manages dual-sided stat bar rendering; supports up to four contextual bars |
-| `LiteStatBarsRenderer` | Low-level renderer for drawing bars, restore volumes, counters, and icons |
-| `LitePrayerDoseOverlay` | Visually cues users when to drink a prayer potion using flashing overlays |
-| `PoisonOverlay` | Adds tooltips when hovering the HP orb with poison/venom info |
-| `PoisonInfobox` | Provides timer-based info boxes indicating upcoming poison/venom ticks |
+| Module                  | Description                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `LiteRegenMeterPlugin`  | Core logic and lifecycle controller; hooks into game ticks, state, events, and plugin settings |
+| `LiteRegenMeterOverlay` | Renders horizontal health and spec regen bars beneath minimap orbs                             |
+| `LiteStatBarsOverlay`   | Manages dual-sided stat bar rendering; supports up to four contextual bars                     |
+| `LiteStatBarsRenderer`  | Low-level renderer for drawing bars, restore volumes, counters, and icons                      |
+| `LitePrayerDoseOverlay` | Visually cues users when to drink a prayer potion using flashing overlays                      |
+| `PoisonOverlay`         | Adds tooltips when hovering the HP orb with poison/venom info                                  |
+| `PoisonInfobox`         | Provides timer-based info boxes indicating upcoming poison/venom ticks                         |
 
 ### Supporting Constructs
 
@@ -110,4 +112,4 @@ This project reflects my capacity to engineer scalable UI plugins under real-tim
 
 I’m open to opportunities where this kind of high-quality, maintainable, and performant engineering can drive user value at scale.
 
---- 
+---

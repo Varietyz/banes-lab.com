@@ -1,4 +1,5 @@
-# Jay Baleine’s Varietyz Bot  
+# Varietyz Bot (ONGOING PROJECT)
+
 **Advanced Discord Bot for OSRS Clan Management & Competitive Event Automation**
 
 **Varietyz Bot** is a high-performance Discord bot built specifically for Old School RuneScape (OSRS) clans. It automates RSN (RuneScape Name) registration, dynamic role assignments, real-time activity tracking, and interactive competitions—including a cutting-edge Bingo event system. Engineered with a modular architecture, robust data integrity practices, and seamless Discord integration, Varietyz Bot exemplifies modern, scalable software design.
@@ -8,6 +9,7 @@
 ## Overview
 
 Varietyz Bot empowers OSRS clans by:
+
 - **Automating RSN Management:** Secure registration and continuous synchronization of player names via the Wise Old Man API.
 - **Dynamic Role Assignments:** Automatically updating Discord roles based on in-game milestones and player activity.
 - **Real-Time Competitions:** Running weekly contests (e.g., Skill of the Week and Boss of the Week) with live leaderboard updates.
@@ -25,16 +27,16 @@ Varietyz Bot is architected around **decoupled, purpose-driven modules**, levera
 
 ### Core Modules
 
-| **Module**                        | **Purpose**                                                                                                                                                        |
-|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `VarietyzBot`                     | Central plugin logic, lifecycle management, and orchestration of commands, events, and scheduled tasks.                                                              |
-| `RSNManagementModule`             | Handles secure registration, validation, and real-time synchronization of RuneScape names using the Wise Old Man API.                                               |
-| `RoleAndActivityEngine`           | Automates role assignments based on in-game achievements, tracks player activity, and dynamically updates Discord roles and statuses.                                 |
-| `BingoEventManager`               | Manages the full lifecycle of Bingo events: dynamically generating 3x5 Bingo boards, tracking task completions, recognizing patterns, and awarding bonus points.|
-| `TaskGeneratorAndScheduler`       | Randomly selects tasks from a configurable pool and schedules precise API polling to update event progress continuously.                                               |
-| `DatabaseUtilities`               | Provides abstractions over SQLite operations with transactional updates, integrity checks, and routine maintenance for persistent data storage.                      |
-| `DiscordSyncManager`              | Coordinates live synchronization with Discord – updating embeds, leaderboards, and voice channel statuses in real time.                                               |
-| `APIClients`                      | Dedicated clients for external API interactions (e.g., Wise Old Man API) with rate limiting and retry logic to ensure robust data fetching.                        |
+| **Module**                  | **Purpose**                                                                                                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `VarietyzBot`               | Central plugin logic, lifecycle management, and orchestration of commands, events, and scheduled tasks.                                                          |
+| `RSNManagementModule`       | Handles secure registration, validation, and real-time synchronization of RuneScape names using the Wise Old Man API.                                            |
+| `RoleAndActivityEngine`     | Automates role assignments based on in-game achievements, tracks player activity, and dynamically updates Discord roles and statuses.                            |
+| `BingoEventManager`         | Manages the full lifecycle of Bingo events: dynamically generating 3x5 Bingo boards, tracking task completions, recognizing patterns, and awarding bonus points. |
+| `TaskGeneratorAndScheduler` | Randomly selects tasks from a configurable pool and schedules precise API polling to update event progress continuously.                                         |
+| `DatabaseUtilities`         | Provides abstractions over SQLite operations with transactional updates, integrity checks, and routine maintenance for persistent data storage.                  |
+| `DiscordSyncManager`        | Coordinates live synchronization with Discord – updating embeds, leaderboards, and voice channel statuses in real time.                                          |
+| `APIClients`                | Dedicated clients for external API interactions (e.g., Wise Old Man API) with rate limiting and retry logic to ensure robust data fetching.                      |
 
 ### Supporting Structures
 
@@ -48,47 +50,57 @@ Varietyz Bot is architected around **decoupled, purpose-driven modules**, levera
 
 ## Advanced Engineering Features
 
- **Stateful RSN & Session Management:**  
- - Securely registers RSNs, validates them against the WOM API, and auto-updates changes in near real time.  
- - Supports multiple accounts per Discord user and performs regular cleanups of inactive data.
+**Stateful RSN & Session Management:**
 
- **Dynamic Role Assignments & Activity Tracking:**  
- - Automatically assigns roles based on skill milestones, boss kills, and other in-game achievements.  
- - Continuously monitors player activity to update statuses and voice channel indicators dynamically.
+- Securely registers RSNs, validates them against the WOM API, and auto-updates changes in near real time.
+- Supports multiple accounts per Discord user and performs regular cleanups of inactive data.
 
- **Real-Time Competitions & Leaderboards:**  
- - Hosts weekly competitions (Skill of the Week / Boss of the Week) that rotate automatically, with live leaderboard updates delivered via interactive Discord embeds.
+**Dynamic Role Assignments & Activity Tracking:**
 
- **Innovative Bingo Event System:**  
- - Generates a fresh 3x5 Bingo board for each event with randomized tasks.  
- - Tracks task progress and recognizes predefined patterns (rows, diagonals, full board) to award bonus points.  
- - Supports both individual and team play, with intelligent point distribution based on contribution.
+- Automatically assigns roles based on skill milestones, boss kills, and other in-game achievements.
+- Continuously monitors player activity to update statuses and voice channel indicators dynamically.
 
- **Robust Database Management:**  
- - Employs an optimized SQLite database with enforced constraints and transactional operations to ensure data consistency.  
- - Implements automated maintenance routines (archival, cleanup, backup) to keep data lean and reliable.
+**Real-Time Competitions & Leaderboards:**
 
- **Seamless Discord Synchronization:**  
- - Uses Discord.js to sync all data in near real time, updating roles, embeds, and status channels instantly as game data changes.
+- Hosts weekly competitions (Skill of the Week / Boss of the Week) that rotate automatically, with live leaderboard updates delivered via interactive Discord embeds.
+
+**Innovative Bingo Event System:**
+
+- Generates a fresh 3x5 Bingo board for each event with randomized tasks.
+- Tracks task progress and recognizes predefined patterns (rows, diagonals, full board) to award bonus points.
+- Supports both individual and team play, with intelligent point distribution based on contribution.
+
+**Robust Database Management:**
+
+- Employs an optimized SQLite database with enforced constraints and transactional operations to ensure data consistency.
+- Implements automated maintenance routines (archival, cleanup, backup) to keep data lean and reliable.
+
+**Seamless Discord Synchronization:**
+
+- Uses Discord.js to sync all data in near real time, updating roles, embeds, and status channels instantly as game data changes.
 
 ---
 
 ## Scalability, Modularity & Maintenance
 
- **Scalable Performance:**  
- - Asynchronous, event-driven design allows the bot to handle a growing user base and increased event frequency without performance degradation.
+**Scalable Performance:**
 
- **Modular Architecture:**  
- - Independent modules for commands, business logic, and utilities facilitate rapid feature development and easy code maintenance.  
- - New features (e.g., additional competitions or custom commands) can be added without affecting core functionality.
+- Asynchronous, event-driven design allows the bot to handle a growing user base and increased event frequency without performance degradation.
 
- **Ease of Modification:**  
- - Clear separation of concerns and dependency injection ensure that modifications are localized, reducing the risk of regressions.  
- - Centralized configuration and comprehensive logging make troubleshooting and future enhancements straightforward.
+**Modular Architecture:**
 
- **Future-Proof Design:**  
- - The architecture anticipates growth, with robust error handling, scheduled maintenance tasks, and dynamic data synchronization ensuring long-term reliability.  
- - The codebase is structured to support continuous integration and deployment, making it easy to iterate and scale the project further.
+- Independent modules for commands, business logic, and utilities facilitate rapid feature development and easy code maintenance.
+- New features (e.g., additional competitions or custom commands) can be added without affecting core functionality.
+
+**Ease of Modification:**
+
+- Clear separation of concerns and dependency injection ensure that modifications are localized, reducing the risk of regressions.
+- Centralized configuration and comprehensive logging make troubleshooting and future enhancements straightforward.
+
+**Future-Proof Design:**
+
+- The architecture anticipates growth, with robust error handling, scheduled maintenance tasks, and dynamic data synchronization ensuring long-term reliability.
+- The codebase is structured to support continuous integration and deployment, making it easy to iterate and scale the project further.
 
 ---
 

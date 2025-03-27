@@ -1,1 +1,3 @@
-export default function ProjectCard() { return <div></div>; }
+export default function ProjectCard() {
+  return <div></div>;
+}

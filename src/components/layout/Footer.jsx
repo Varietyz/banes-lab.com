@@ -15,8 +15,7 @@ export default function Footer() {
         border-gold
         shadow-md
         z-50
-      "
-    >
+      ">
       <div className="container mx-auto px-4 text-center font-body">
         &copy; {new Date().getFullYear()} Bane's Lab. All Rights Reserved.
       </div>

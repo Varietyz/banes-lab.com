@@ -78,8 +78,8 @@ export const droptrackerFiles = {
     'Yellow_Halfrounded_Board.png',
     'Yellow_Rounded_Board.png',
     'Yellow_RuneLite_Style_Board.png',
-    'Yellow_Square_Board.png',
-  ],
+    'Yellow_Square_Board.png'
+  ]
 };
 
 // D. Enigma Esports
@@ -96,8 +96,8 @@ export const enigmaRoot = {
     'button_videos.gif',
     'window.gif',
     'Ziona.gif',
-    'combat_master_logo_animation.gif',
-  ],
+    'combat_master_logo_animation.gif'
+  ]
 };
 
 // E. Logos
@@ -108,8 +108,8 @@ export const logos = {
     'varietyz_logo_main.png',
     'rosey_logo.png',
     'enigma_logo.jpg',
-    'enigma_logo_main.png',
-  ],
+    'enigma_logo_main.png'
+  ]
 };
 
 // F. OSRS Avatars
@@ -119,8 +119,8 @@ export const osrsAvatars = {
     'character_custom.png',
     'character_misty_woods.png',
     'character_sunset.png',
-    'osrs_clans_animated.gif',
-  ],
+    'osrs_clans_animated.gif'
+  ]
 };
 
 // G. OSRS Bingo
@@ -134,8 +134,8 @@ export const osrsBingo = {
     'template_card_rosey.png',
     'default_cross.png',
     'validated_cross.png',
-    'validated_cross_rosey.png',
-  ],
+    'validated_cross_rosey.png'
+  ]
 };
 
 // H. RuneLite Theme
@@ -156,8 +156,8 @@ export const runeliteTheme = {
     'options_screen.png',
     'chatbox.png',
     'tabs.png',
-    'welcome_screen.png',
-  ],
+    'welcome_screen.png'
+  ]
 };
 
 // I. Varietyz Deluxe
@@ -189,8 +189,8 @@ export const varietyzDeluxe = {
     'chatbox.png',
     'welcome.png',
     'wildy.png',
-    'wildy_selected.png',
-  ],
+    'wildy_selected.png'
+  ]
 };
 
 // J. Roseyrs
@@ -200,8 +200,8 @@ export const osrsRoseyrs = {
     'banner_animated.gif',
     'banner_text.png',
     'botw_banner_rosey.gif',
-    'sotw_banner_rosey.gif',
-  ],
+    'sotw_banner_rosey.gif'
+  ]
 };
 
 // K. RuneLite UI
@@ -211,8 +211,8 @@ export const runeliteUI = {
     'concept_leaderboard.png',
     'example_concept_leaderboard.png',
     'concept_personal_loot.png',
-    'example_concept_personal_loot.png',
-  ],
+    'example_concept_personal_loot.png'
+  ]
 };
 
 // L. OSRS Varietyz
@@ -225,12 +225,12 @@ export const osrsVarietyz = {
     'avatars/mechanical.png',
     'botw_banner.png',
     'sotw_banner.png',
-    'varietyz_banner.png',
-  ],
+    'varietyz_banner.png'
+  ]
 };
 
 // N. Elements
 export const elements = {
   basePath: '/assets/images/elements',
-  files: ['buttons.gif', 'button.gif', 'widebox.gif'],
+  files: ['buttons.gif', 'button.gif', 'widebox.gif']
 };
