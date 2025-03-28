@@ -19,7 +19,7 @@ export default function Navbar() {
         justify-center
       ">
       {/* Navbar links, etc. */}
-      {['Home', 'Graphics', 'Development', 'About', 'Contact'].map(item => (
+      {['Home', 'Graphics', 'Development', 'Roadmap', 'About', 'Contact'].map(item => (
         <Link
           key={item}
           to={`/${item === 'Home' ? '' : item.toLowerCase()}`}

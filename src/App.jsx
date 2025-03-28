@@ -8,6 +8,7 @@ import Graphics from './pages/Graphics';
 import Development from './pages/Development';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Roadmap from './pages/Roadmap';
 import 'github-markdown-css/github-markdown-dark.css'; // or github-markdown-light.css
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/graphics" element={<Graphics />} />
               <Route path="/development" element={<Development />} />
+              <Route path="/roadmap" element={<Roadmap />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
