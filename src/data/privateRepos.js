@@ -1,4 +1,7 @@
 export const privateRepos = [
+  // Add if needed
+];
+/* PLACEHOLDER DATA
   {
     id: 'private-1',
     name: 'Discord-Bot-Varietyz',
@@ -9,5 +12,4 @@ export const privateRepos = [
     language: 'JavaScript', // Main language
     private: true
   }
-  // Add more if needed
-];
+*/

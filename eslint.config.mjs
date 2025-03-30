@@ -1,23 +1,23 @@
-const js = require('@eslint/js');
-const node = require('eslint-plugin-n');
-const jsdoc = require('eslint-plugin-jsdoc');
-const react = require('eslint-plugin-react');
-const prettier = require('eslint-plugin-prettier');
-const babelParser = require('@babel/eslint-parser');
-const globals = require('globals');
+// eslint.config.js
+import js from '@eslint/js';
+import node from 'eslint-plugin-n';
+import jsdoc from 'eslint-plugin-jsdoc';
+import react from 'eslint-plugin-react';
+import prettier from 'eslint-plugin-prettier';
+import babelParser from '@babel/eslint-parser';
+import globals from 'globals';
 
-module.exports = [
+export default [
   js.configs.recommended,
 
-  {
-    globals: {
-      ...globals.node
-    }
-  },
+  { languageOptions: { globals: { ...globals.node, ...globals.browser } } },
   // 🧠 Backend Rules — Node.js ONLY for Discord Bot
   {
     files: ['banes-lab-bot/**/*.js'],
     languageOptions: {
+      globals: {
+        ...globals.node
+      },
       ecmaVersion: 'latest',
       sourceType: 'module'
     },
@@ -56,6 +56,8 @@ module.exports = [
       'no-use-before-define': ['error', { functions: false, classes: true, variables: true }],
       'prefer-const': 'warn',
       'react/prop-types': 'off',
+      'react/jsx-uses-react': 'error', // ✅ Important for older React versions
+      'react/jsx-uses-vars': 'error', // ✅ Important to detect JSX variables like Link, ArrowLeft
       'jsdoc/check-alignment': 'warn',
       'jsdoc/check-indentation': 'warn',
       'jsdoc/check-param-names': 'warn',
@@ -63,6 +65,7 @@ module.exports = [
       'jsdoc/require-param': 'warn',
       'jsdoc/require-returns': 'warn'
     },
+
     settings: {
       react: {
         version: 'detect'

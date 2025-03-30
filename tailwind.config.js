@@ -1,5 +1,5 @@
 // tailwind.config.js
-const colors = require('tailwindcss/colors');
+//const colors = require('tailwindcss/colors');
 
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx}'],
@@ -9,7 +9,8 @@ module.exports = {
       colors: {
         gold: '#cea555',
         dark: '#101010',
-        accent: '#cea555'
+        accent: '#cea555',
+        rosey: '#D66894'
       },
       fontFamily: {
         heading: ['Cinzel', 'serif'],
@@ -38,5 +39,9 @@ module.exports = {
       })
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [
+    require('@tailwindcss/typography'), // Official Tailwind Typography Plugin
+    require('tailwindcss-textshadow'), // Text Shadow Plugin
+    require('tailwindcss-text-fill-stroke')
+  ]
 };

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaWrench,
@@ -8,6 +8,7 @@ import {
   FaGraduationCap,
   FaCode
 } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 // Roadmap data structured with sections and nested subsections for full content
 const roadmapData = [
@@ -213,14 +214,48 @@ const roadmapData = [
   }
 ];
 
+/**
+ *
+ */
 export default function Roadmap() {
+  const [showTopButton, setShowTopButton] = useState(false);
+  const scrollRef = useRef(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    const node = scrollRef.current;
+    if (!node) return;
+    const handleScroll = () => setShowTopButton(node.scrollTop > 2700);
+    node.addEventListener('scroll', handleScroll);
+    return () => node.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Variants for the vertical center line.
+  const lineVariants = {
+    hidden: { height: 0 },
+    visible: { height: '100%', transition: { duration: 1.5, ease: 'easeOut' } }
+  };
+
+  // Variants for each roadmap section.
+  // 'custom' is used to stagger the animation based on index.
+  const sectionVariants = {
+    hidden: { scale: 0.8, opacity: 0, y: 20 },
+    visible: i => ({
+      scale: 1,
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.1 + i * 0.2, duration: 0.5, ease: 'easeOut' }
+    })
+  };
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    // Outer container with flex centering and scrolling enabled
-    <div className="h-screen overflow-y-auto no-scrollbar px-4 py-12 md:py-24 flex justify-center">
+    <div
+      ref={scrollRef}
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-12 md:py-24 flex justify-center">
       <section className="max-w-5xl w-full">
         {/* Page Heading */}
         <h2 className="text-4xl md:text-5xl font-heading text-gold text-center mb-6">
@@ -229,20 +264,30 @@ export default function Roadmap() {
         <div className="border-b-2 border-gold w-24 mx-auto mb-12" />
 
         {/* Timeline Wrapper */}
-        <div className="relative w-full">
+        <div className="relative w-full ">
           {/* Vertical Line Positioned in the Center */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full border-l-4 border-gold"></div>
+          <motion.div
+            className="absolute left-1/2 transform -translate-x-1/2 border-l-4 border-gold"
+            variants={lineVariants}
+            initial="hidden"
+            animate="visible"></motion.div>
 
           {/* Timeline Content */}
-          <div className="relative">
+          <div className="relative ">
             {roadmapData.map((section, idx) => (
-              <div key={idx} className="mb-16 relative flex flex-col items-center">
+              <motion.div
+                key={idx}
+                className="mb-16 relative flex flex-col items-center"
+                custom={idx}
+                initial="hidden"
+                animate="visible"
+                variants={sectionVariants}>
                 {/* Icon Container Centered on the Vertical Line */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-dark border-2 border-gold flex items-center justify-center shadow-lg">
                   {section.icon}
                 </div>
                 {/* Card Container for the Section Text */}
-                <div className="w-full max-w-3xl mt-8 border-4 bg-dark border-gold p-4 rounded-lg">
+                <div className="w-full max-w-3xl mt-8 border-2 bg-dark border-gold p-4 rounded-lg">
                   {/* Section Title & Years */}
                   <h3 className="text-2xl font-heading text-gold text-center mb-1">
                     {section.title}{' '}
@@ -275,18 +320,36 @@ export default function Roadmap() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
         {/* Call-to-Action */}
-        <div className="text-center mt-16">
+        <div className="pb-20 text-center mt-16 transform -translate-y-10">
+          {' '}
+          {/* Moves down by 8 units */}
           <Link
             to="/about"
             className="px-6 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
             Learn More About Me
           </Link>
+        </div>
+        <div className="pb-1"></div>
+
+        <div
+          className={`
+            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
+            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+          `}>
+          <div className="max-w-6xl mx-auto flex justify-center">
+            <button
+              onClick={scrollToTop}
+              className="bg-gold text-dark text-xl font-bold rounded-tl-2xl rounded-tr-2xl px-6 py-3 shadow-lg hover:bg-accent transition-all duration-300 animate-bounce"
+              title="Back to Top">
+              ↑ Back to Top
+            </button>
+          </div>
         </div>
       </section>
     </div>
