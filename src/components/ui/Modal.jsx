@@ -43,10 +43,10 @@ export default function Modal({ project, onClose }) {
 
       {/* Main Modal Container */}
       <div
-        className="fixed inset-0 z-[998] flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm px-4"
+        className="fixed inset-0 z-[998] flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm px-4 sm:px-6"
         onClick={onClose}>
         <div
-          className="bg-dark rounded-lg max-w-3xl w-full p-6 relative shadow-xl text-white"
+          className="bg-dark rounded-lg max-w-3xl w-full p-4 sm:p-6 relative shadow-xl text-white overflow-y-auto max-h-[90vh]"
           onClick={e => e.stopPropagation()}>
           {images.length > 1 ? (
             <div className="relative">
@@ -66,12 +66,12 @@ export default function Modal({ project, onClose }) {
                 <>
                   <button
                     onClick={() => slider.prev()}
-                    className="absolute top-1/2 left-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition">
+                    className="absolute top-1/2 left-2 sm:left-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-2 sm:px-3 py-1 sm:py-2 rounded-full shadow hover:bg-accent transition">
                     Prev
                   </button>
                   <button
                     onClick={() => slider.next()}
-                    className="absolute top-1/2 right-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-3 py-2 rounded-full shadow hover:bg-accent transition">
+                    className="absolute top-1/2 right-2 sm:right-3 transform -translate-y-1/2 z-50 bg-gold text-dark px-2 sm:px-3 py-1 sm:py-2 rounded-full shadow hover:bg-accent transition">
                     Next
                   </button>
                 </>
@@ -81,13 +81,13 @@ export default function Modal({ project, onClose }) {
             <img
               src={project.image}
               alt={project.title}
-              className="max-w-full h-auto mx-auto mb-4 cursor-zoom-in "
+              className="max-w-full h-auto mx-auto mb-4 cursor-zoom-in"
               onClick={() => setZoomed(true)}
             />
           )}
 
-          <h2 className="text-2xl font-heading text-gold mb-2">{project.title}</h2>
-          <p className="text-sm font-body mb-4">{project.description}</p>
+          <h2 className="text-xl sm:text-2xl font-heading text-gold mb-2">{project.title}</h2>
+          <p className="text-sm sm:text-base font-body mb-4">{project.description}</p>
           {project.tags && (
             <div className="flex flex-wrap gap-2 text-xs mb-4">
               {project.tags.map((tag, i) => (
@@ -102,7 +102,7 @@ export default function Modal({ project, onClose }) {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-2 px-6 py-2 bg-gold text-dark font-semibold rounded-full hover:bg-accent transition">
+              className="inline-block mt-2 px-4 sm:px-6 py-1.5 sm:py-2 bg-gold text-dark font-semibold rounded-full hover:bg-accent transition">
               View Project
             </a>
           )}

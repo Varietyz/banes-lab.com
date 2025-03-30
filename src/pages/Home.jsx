@@ -29,21 +29,27 @@ const staggerContainer = {
  */
 export default function Home() {
   const totalDuration = 0.7;
-  const [ref, isInView] = useInView({ threshold: 0.1 });
-  const controls = useAnimation();
+  const [headerRef, headerInView] = useInView({ threshold: 0.1 });
+  const [aboutRef, aboutInView] = useInView({ threshold: 0.1 });
+  const headerControls = useAnimation();
+  const aboutControls = useAnimation();
 
   useEffect(() => {
-    if (isInView) controls.start('visible');
-  }, [isInView, controls]);
+    if (headerInView) headerControls.start('visible');
+  }, [headerInView, headerControls]);
+
+  useEffect(() => {
+    if (aboutInView) aboutControls.start('visible');
+  }, [aboutInView, aboutControls]);
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="h-screen overflow-y-auto no-scrollbar">
+      <div className="h-screen overflow-y-auto no-scrollbar px-4 sm:px-6 lg:px-8">
         <section className="w-full px-4 py-20 md:py-32 text-center">
           <m.div
-            ref={ref}
+            ref={headerRef}
             initial="hidden"
-            animate={controls}
+            animate={headerControls}
             variants={staggerContainer}
             className="w-full max-w-3xl mx-auto mb-16">
             {/* Logo Animation */}
@@ -57,7 +63,7 @@ export default function Home() {
 
             {/* Heading Animation */}
             <m.h2
-              className="text-4xl md:text-5xl font-heading text-gold mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold mb-4"
               variants={fadeInVariant}
               transition={{ duration: totalDuration }}>
               Bane's Lab
@@ -65,7 +71,7 @@ export default function Home() {
 
             {/* Description Animation */}
             <m.p
-              className="text-lg md:text-xl text-white font-body mb-8"
+              className="text-base sm:text-lg md:text-xl lg:text-xl text-white font-body mb-8"
               variants={fadeInVariant}
               transition={{ duration: totalDuration }}>
               Crafting unique, professional experiences across{' '}
@@ -77,34 +83,38 @@ export default function Home() {
 
             {/* Links Animation */}
             <m.div
-              className="flex justify-center gap-6 flex-wrap"
+              className="w-full max-w-lg mx-auto grid grid-cols-1 sm:grid-cols-2 gap-y-4"
               variants={fadeInVariant}
               transition={{ duration: totalDuration, ease: 'backOut' }}>
-              <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  to="/graphics"
-                  className="px-8 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
-                  Explore Graphics
-                </Link>
-              </m.div>
-              <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  to="/contact"
-                  className="px-8 py-3 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-dark transition duration-300">
-                  Contact Me
-                </Link>
-              </m.div>
+              <div className="flex justify-center sm:justify-end sm:pr-4 mb-4 sm:mb-0 ">
+                <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    to="/graphics"
+                    className="px-8 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
+                    Explore Graphics
+                  </Link>
+                </m.div>
+              </div>
+              <div className="flex justify-center sm:justify-start sm:pl-4">
+                <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    to="/contact"
+                    className="px-8 py-3 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-dark transition duration-300">
+                    Contact Me
+                  </Link>
+                </m.div>
+              </div>
             </m.div>
           </m.div>
 
           {/* About Me Section */}
           <m.div
-            ref={ref}
+            ref={aboutRef}
             initial="hidden"
-            animate={controls}
+            animate={aboutControls}
             variants={fadeInVariant}
             transition={{ duration: totalDuration, ease: 'easeOut' }}
-            className="w-full max-w-2xl mx-auto text-left bg-dark p-4 md:p-6 rounded-xl shadow-xl">
+            className="w-full max-w-3xl xl:max-w-4xl mx-auto text-left bg-dark p-4 sm:p-6 lg:p-8 rounded-xl shadow-xl">
             <h3 className="text-2xl md:text-3xl font-heading text-gold mb-2 text-center">
               About Me
             </h3>
@@ -118,7 +128,7 @@ export default function Home() {
                 <img
                   src="/assets/images/real_life/beach.jpg"
                   alt="Bane's Portrait"
-                  className="w-32 h-32 rounded-full border-2 border-gold shadow-md object-cover"
+                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-gold shadow-md object-cover"
                 />
               </m.div>
 

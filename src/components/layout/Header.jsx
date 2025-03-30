@@ -50,8 +50,7 @@ export default function Header({ colorScheme = 'gold' }) {
         top-0 
         left-0 
         right-0 
-        h-5 
-        py-2 
+        py-2
         px-4 
         shadow-xl 
         border-b 

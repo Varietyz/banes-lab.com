@@ -243,7 +243,7 @@ export default function RuneLite() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth relative">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth relative">
       <Header colorScheme="light" />
       <Navbar colorScheme="light" />
       {/* 🔥 Background Layer */}
@@ -255,35 +255,40 @@ export default function RuneLite() {
       />
       <section className="max-w-6xl mx-auto space-y-8 px-4">
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-4">
-            <Link to="/graphics" title="Back to Graphics Overview">
-              <ArrowLeft size={36} className="text-black hover:text-accent transition" />
-            </Link>
-            <h2 className="text-4xl font-heading text-black">
-              {currentTheme === 'runeliteTheme' ? 'RuneLite Theme' : 'Varietyz Deluxe'}
-            </h2>
-          </div>
-          {/* Toggle Button - Clicker Toggle */}
-          <div className=" mt-4 md:mt-0 flex flex-col items-center justify-center relative mb-[-120px] mx-2.5">
-            {' '}
-            {/* Set mb-[5px] for precise positioning above the icon */}
-            <div className="flex items-center space-x-2 transition-all duration-300 relative">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 ">
+          {/* Header */}
+          <div className="text-center">
+            {/* Header Section */}
+            <div className="grid grid-cols-[auto,1fr,auto] items-center gap-4 mb-1">
+              {/* Back Arrow */}
+              <Link to="/graphics" title="Back to Graphics Overview">
+                <ArrowLeft size={36} className="text-black hover:text-accent transition" />
+              </Link>
+              {/* Centered Header Text */}
+              <h2 className="text-4xl font-heading text-black">{'OSRS Theme Packs'}</h2>
+              {/* Placeholder equal to the back arrow size */}
+              <div className="w-[36px]" />
+            </div>
+
+            {/* Divider */}
+            <hr className="border-t border-dark pb-1 w-3/4 mx-auto" />
+
+            {/* Toggle Button Section */}
+            <div className="flex items-center justify-center space-x-2 transform -translate-y-1 transition-all duration-300 hover:scale-105">
               {/* RuneLite Theme Button */}
               <button
                 onClick={() => handleThemeToggle('runeliteTheme')}
                 disabled={loading || cooldown}
                 className={`transition-all duration-300 ${
                   currentTheme === 'runeliteTheme'
-                    ? 'text-black text-xl font-bold opacity-100'
-                    : 'text-white  text-sm'
+                    ? 'text-black text-lg sm:text-xl font-bold opacity-100'
+                    : 'text-black/70 text-sm sm:text-base'
                 }`}>
                 RuneLite Theme
               </button>
 
-              {/* Placeholder for consistent spacing */}
+              {/* Placeholder for consistent spacing and loading spinner position */}
               <div className="relative w-[18px] h-[18px]">
-                {/* Loading Spinner */}
                 {loading && (
                   <Loader2
                     className="animate-spin text-black absolute inset-0 transition-opacity duration-300 opacity-100"
@@ -298,8 +303,8 @@ export default function RuneLite() {
                 disabled={loading || cooldown}
                 className={`transition-all duration-300 ${
                   currentTheme === 'varietyzDeluxe'
-                    ? 'text-black text-xl font-bold opacity-100'
-                    : 'text-white text-sm'
+                    ? 'text-black text-lg sm:text-xl font-bold opacity-100'
+                    : 'text-black/70 text-sm sm:text-base'
                 }`}>
                 Varietyz Deluxe
               </button>
@@ -308,19 +313,19 @@ export default function RuneLite() {
         </div>
 
         {/* Header and Description Area */}
-        <div className="flex flex-col md:flex-row items-center justify-between ">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-6">
           {/* Description */}
-          <div className="w-full md:max-w-[45%] py-2 px-3 bg-[#999999] border border-black rounded-2xl space-y-4 text-lg font-body  text-shadow-md mt-4">
+          <div className="w-full lg:max-w-[45%]  px-4 sm:px-6 font-bold space-y-4 text-sm sm:text-base lg:text-lg font-body text-shadow-md ">
             <p>
               {currentTheme === 'runeliteTheme'
                 ? 'Sleek, dark UI built to enhance the RuneLite visual experience. Ideal for low-light environments and providing sharp contrast for better visibility.'
                 : 'A luxurious theme with rich gold accents and elegant borders, providing a premium, high-quality user interface for RuneLite enthusiasts.'}
             </p>
-            <p className="text-white text-shadow-md ">
+            <p className="text-white text-xs italic">
               These themes are designed to be applied through the{' '}
               <span className="text-black font-semibold">Resource Packs Plugin</span> on RuneLite.
-              Simply drag and drop the files into the plugin’s configuration panel or install from
-              the plugin's hub to customize your game experience.
+              Simply drag and drop the folders path into the plugin’s configuration panel or install
+              from the plugin's hub to customize your game experience.
             </p>
           </div>
 
@@ -355,7 +360,7 @@ export default function RuneLite() {
                 className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
                   activeTags.includes(tag)
                     ? 'bg-black text-white'
-                    : 'border-dark text-dark hover:bg-dark hover:text-white'
+                    : 'bg-[#999999] border-dark text-dark hover:bg-dark hover:text-white'
                 }`}>
                 {tag}
               </button>
@@ -371,7 +376,7 @@ export default function RuneLite() {
         </div>
 
         {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredFiles.map((file, i) => (
             <div
               key={i}
@@ -381,7 +386,7 @@ export default function RuneLite() {
                 src={`${themeData.basePath}/${file}`}
                 alt={file}
                 loading="lazy"
-                className="object-contain mx-auto  "
+                className="object-contain mx-auto rounded-lg max-w-full h-auto"
               />
             </div>
           ))}
@@ -389,10 +394,9 @@ export default function RuneLite() {
 
         {/* Scroll to Top Button */}
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
+    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+  `}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

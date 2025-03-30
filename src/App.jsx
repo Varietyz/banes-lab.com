@@ -50,10 +50,11 @@ function AppContent() {
         className="absolute inset-0 bg-dark bg-cover bg-center scale-110 pointer-events-none -z-10"
         style={{ backgroundImage: `url(${bgImage})` }}
       />
+
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header colorScheme={colorScheme} />
         <Navbar colorScheme={colorScheme} />
-        <main className="flex-grow">
+        <main className="flex-grow mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           <Routes>
             <Route path="/" element={<Home />} />
 

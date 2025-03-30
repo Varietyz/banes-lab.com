@@ -226,10 +226,10 @@ export default function Varietyz() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <section className="max-w-6xl mx-auto space-y-10 px-4">
         {/* Header and Description Area */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
           <div className="max-w-[50%]">
             {' '}
             {/* Adjusted the width to match the image */}
@@ -239,7 +239,7 @@ export default function Varietyz() {
               </Link>
               <h2 className="text-4xl font-heading text-gold">Varietyz Graphics</h2>
             </div>
-            <div className="space-y-4 text-lg font-body text-white/80 mt-4">
+            <div className="space-y-4 text-base sm:text-lg lg:text-xl font-body text-white/80 mt-4">
               <p>
                 The <span className="text-gold">Varietyz</span> visuals are all about that clean,
                 polished look that keeps everything feeling top-tier. I went all-in on consistency,
@@ -258,7 +258,7 @@ export default function Varietyz() {
           </div>
 
           {/* Display Animated Banner */}
-          <div className="max-w-[50%] flex justify-center transition-transform ">
+          <div className="w-full lg:w-[50%] flex justify-center transition-transform">
             {' '}
             {/* Matching width for consistency */}
             <img
@@ -290,7 +290,7 @@ export default function Varietyz() {
                 className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
                   activeTags.includes(tag)
                     ? 'bg-gold text-dark'
-                    : 'border-gold text-gold hover:bg-accent hover:text-dark'
+                    : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
                 }`}>
                 {tag}
               </button>
@@ -306,7 +306,7 @@ export default function Varietyz() {
         </div>
 
         {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredFiles.map((file, i) => (
             <div
               key={i}
@@ -315,7 +315,7 @@ export default function Varietyz() {
               <img
                 src={`${osrsVarietyz.basePath}/${file}`}
                 alt={file}
-                className="object-contain mx-auto rounded-md"
+                className="object-contain mx-auto rounded-md max-w-full h-auto"
                 loading="lazy"
               />
             </div>
@@ -324,10 +324,9 @@ export default function Varietyz() {
 
         {/* Scroll to Top Button */}
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
+    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+  `}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

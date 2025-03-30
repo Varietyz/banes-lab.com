@@ -225,7 +225,7 @@ export default function Roadmap() {
     window.scrollTo(0, 0);
     const node = scrollRef.current;
     if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 2700);
+    const handleScroll = () => setShowTopButton(node.scrollTop > 2490);
     node.addEventListener('scroll', handleScroll);
     return () => node.removeEventListener('scroll', handleScroll);
   }, []);
@@ -255,16 +255,17 @@ export default function Roadmap() {
   return (
     <div
       ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-12 md:py-24 flex justify-center">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth flex justify-center">
       <section className="max-w-5xl w-full">
         {/* Page Heading */}
-        <h2 className="text-4xl md:text-5xl font-heading text-gold text-center mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold text-center mb-6">
           Career Roadmap
         </h2>
+
         <div className="border-b-2 border-gold w-24 mx-auto mb-12" />
 
         {/* Timeline Wrapper */}
-        <div className="relative w-full ">
+        <div className="relative w-full px-4 sm:px-6 lg:px-8">
           {/* Vertical Line Positioned in the Center */}
           <motion.div
             className="absolute left-1/2 transform -translate-x-1/2 border-l-4 border-gold"
@@ -273,7 +274,7 @@ export default function Roadmap() {
             animate="visible"></motion.div>
 
           {/* Timeline Content */}
-          <div className="relative ">
+          <div className="relative w-full px-4 sm:px-6 lg:px-8">
             {roadmapData.map((section, idx) => (
               <motion.div
                 key={idx}
@@ -287,7 +288,7 @@ export default function Roadmap() {
                   {section.icon}
                 </div>
                 {/* Card Container for the Section Text */}
-                <div className="w-full max-w-3xl mt-8 border-2 bg-dark border-gold p-4 rounded-lg">
+                <div className="w-full max-w-4xl lg:max-w-5xl mt-8 border-2 bg-dark border-gold p-4 sm:p-6 rounded-lg">
                   {/* Section Title & Years */}
                   <h3 className="text-2xl font-heading text-gold text-center mb-1">
                     {section.title}{' '}
@@ -338,10 +339,9 @@ export default function Roadmap() {
         <div className="pb-1"></div>
 
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
+    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+  `}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

@@ -32,18 +32,21 @@ export default function About() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="h-screen overflow-y-auto no-scrollbar px-4 py-12 md:py-24">
+      <div className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
         <m.section
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer}
-          className="max-w-5xl mx-auto bg-dark rounded-xl border border-gold shadow-xl p-8 md:p-12 text-white space-y-12">
+          className="max-w-4xl xl:max-w-5xl mx-auto bg-dark rounded-xl border border-gold shadow-xl p-4 sm:p-6 lg:p-8 text-white space-y-12">
           {/* Header */}
           <m.div variants={fadeInVariant} className="text-center">
-            <h2 className="text-4xl md:text-5xl font-heading text-gold mb-2">About Me</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold mb-2">
+              About Me
+            </h2>
+
             <div className="border-b-2 border-gold w-24 mx-auto mb-6" />
-            <p className="text-base md:text-lg max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto">
               I'm <span className="text-gold font-semibold">Bane</span>, a self-taught developer and
               designer with nearly 15 years of experience building full-stack systems, automation
               tools, and digital brand ecosystems.
@@ -87,7 +90,7 @@ export default function About() {
           {/* Skills & Expertise */}
           <m.section variants={fadeInVariant} className="space-y-4">
             <h3 className="text-2xl md:text-3xl font-heading text-gold">Skills & Expertise</h3>
-            <ul className="list-disc list-inside space-y-2 text-sm md:text-base">
+            <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm md:text-base lg:text-lg">
               <li>
                 <span className="text-gold font-semibold">Frontend:</span> React, Tailwind CSS,
                 JavaScript, HTML5/CSS3
@@ -135,7 +138,7 @@ export default function About() {
             </p>
             <Link
               to="/contact"
-              className="px-6 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
+              className="px-6 py-3 text-sm sm:text-base md:text-lg bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
               Contact Me
             </Link>
           </m.section>

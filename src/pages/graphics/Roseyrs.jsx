@@ -232,14 +232,14 @@ export default function RoseyRS() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <Header colorScheme="pink" />
       <Navbar colorScheme="pink" />
 
       <section className="max-w-6xl mx-auto space-y-10 px-4">
         {/* Header and Description Area */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="max-w-[50%]">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-6">
+          <div className="w-full lg:max-w-[45%] space-y-4 text-base font-body text-white mt-2 leading-relaxed">
             {' '}
             {/* Adjusted the width to match the image */}
             <div className="flex items-center gap-4">
@@ -277,7 +277,7 @@ export default function RoseyRS() {
           </div>
 
           {/* Display Animated Banner */}
-          <div className="max-w-[35%] flex justify-center transition-transform">
+          <div className="w-full lg:w-[35%] flex justify-center transition-transform mt-6 lg:mt-0">
             {' '}
             {/* Matching width for consistency */}
             <img
@@ -309,7 +309,7 @@ export default function RoseyRS() {
                 className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
                   activeTags.includes(tag)
                     ? 'bg-rosey text-dark'
-                    : 'border-rosey text-rosey hover:bg-rosey hover:text-dark'
+                    : 'bg-[#512A43] border-rosey text-white/85 hover:bg-rosey hover:text-dark'
                 }`}>
                 {tag}
               </button>
@@ -325,7 +325,7 @@ export default function RoseyRS() {
         </div>
 
         {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {filteredFiles.map((file, i) => (
             <div
               key={i}
@@ -334,7 +334,7 @@ export default function RoseyRS() {
               <img
                 src={`${osrsRoseyrs.basePath}/${file}`}
                 alt={file}
-                className="object-contain mx-auto rounded-md"
+                className="object-contain mx-auto rounded-md max-w-full h-auto"
                 loading="lazy"
               />
             </div>
@@ -343,10 +343,9 @@ export default function RoseyRS() {
 
         {/* Scroll to Top Button */}
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
+    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+  `}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

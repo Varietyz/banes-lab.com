@@ -42,10 +42,10 @@ export default function Logos() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <section className="max-w-6xl mx-auto space-y-20 px-4">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-12">
+        <div className="flex items-center gap-4 mb-12 sm:mb-16 flex-wrap">
           <Link to="/graphics" title="Back to Graphics Overview">
             <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
           </Link>
@@ -56,11 +56,11 @@ export default function Logos() {
         {logos.files.map((file, i) => (
           <div
             key={i}
-            className={`flex flex-col md:flex-row items-center justify-between gap-12 mb-16 transition-all duration-700 transform ${
-              i % 2 === 0 ? 'md:flex-row-reverse fade-in-right' : 'fade-in-left'
+            className={`flex flex-col lg:flex-row items-center justify-between gap-8 mb-12 sm:mb-16 transition-all duration-700 transform ${
+              i % 2 === 0 ? 'lg:flex-row-reverse fade-in-right' : 'fade-in-left'
             }`}>
             {/* Image */}
-            <div className="w-full md:w-2/3 flex justify-center cursor-zoom-in transition-transform hover:scale-105">
+            <div className="w-full lg:w-2/3 flex justify-center cursor-zoom-in transition-transform hover:scale-105">
               <img
                 src={`${logos.basePath}/${file}`}
                 alt={file}
@@ -70,7 +70,7 @@ export default function Logos() {
             </div>
 
             {/* Description */}
-            <div className="w-full md:w-1/2 space-y-4 px-4">
+            <div className="w-full lg:w-1/2 space-y-4 px-4 text-sm sm:text-base lg:text-lg">
               <h3
                 className="text-4xl font-heading transition-all duration-500"
                 style={{ color: descriptions[i].color }}>
@@ -86,14 +86,15 @@ export default function Logos() {
       <style>
         {`
           @keyframes fadeInLeft {
-            0% { opacity: 0; transform: translateX(-50px); }
+            0% { opacity: 0; transform: translateX(-100px); }
             100% { opacity: 1; transform: translateX(0); }
           }
 
           @keyframes fadeInRight {
-            0% { opacity: 0; transform: translateX(50px); }
+            0% { opacity: 0; transform: translateX(100px); }
             100% { opacity: 1; transform: translateX(0); }
           }
+
 
           .fade-in-left {
             animation: fadeInLeft 0.8s ease forwards;

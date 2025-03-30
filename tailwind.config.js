@@ -16,6 +16,14 @@ module.exports = {
         heading: ['Cinzel', 'serif'],
         body: ['Montserrat', 'sans-serif']
       },
+      screens: {
+        xs: '480px', // Extra small devices
+        sm: '640px', // Small devices (landscape phones)
+        md: '768px', // Medium devices (tablets)
+        lg: '1024px', // Large devices (desktops)
+        xl: '1280px', // Extra large devices
+        '2xl': '1536px' // High-resolution displays
+      },
       typography: theme => ({
         invert: {
           css: {
@@ -37,6 +45,14 @@ module.exports = {
           }
         }
       })
+    }
+  },
+  variants: {
+    extend: {
+      // Ensure responsive variants are enabled
+      padding: ['responsive'],
+      margin: ['responsive']
+      // Add other properties as needed
     }
   },
   plugins: [

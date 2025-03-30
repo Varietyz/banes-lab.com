@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Define header, navbar, and footer heights */
+:root {
+  --header-height: 64px; /* adjust as needed */
+  --navbar-height: 48px; /* adjust as needed */
+  --footer-height: 80px; /* adjust as needed */
+}
+
 /* 
    1) Slide In from Bottom (shorter distance = smoother)
    We also use a slightly faster, more refined easing.
@@ -53,6 +60,10 @@ body {
 /* Your main content area */
 .content {
   flex-grow: 1; /* expands to fill space, pushing footer down */
+  /* Adjust the viewport height to account for header, navbar, and footer */
+  min-height: calc(100vh - var(--header-height) - var(--navbar-height) - var(--footer-height));
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
 }
 
 /* Footer styling stays at bottom */

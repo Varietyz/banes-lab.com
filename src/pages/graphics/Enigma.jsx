@@ -115,7 +115,7 @@ function FullscreenViewer({ selected, onClose, enigmaRoot }) {
           onPointerUp={handlePointerUp}
           onPointerCancel={() => setDragging(false)}
           onDoubleClick={handleDoubleClick}
-          className={`object-contain transition-transform duration-300 ${
+          className={`object-contain transition-transform duration-300 max-w-full max-h-full ${
             zoomed ? 'cursor-grab' : 'cursor-zoom-in'
           }`}
           style={{
@@ -226,11 +226,11 @@ export default function Enigma() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <section className="max-w-6xl mx-auto space-y-10 px-4">
         {/* Header and Description Area */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="max-w-[50%]">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="w-full lg:max-w-[55%]">
             {' '}
             {/* Adjusted the width to match the image */}
             <div className="flex items-center gap-4">
@@ -264,7 +264,7 @@ export default function Enigma() {
           </div>
 
           {/* Display Animated Banner */}
-          <div className="max-w-[37%] flex justify-center transition-transform">
+          <div className="w-full lg:max-w-[40%] flex justify-center transition-transform">
             {' '}
             {/* Matching width for consistency */}
             <img
@@ -296,7 +296,7 @@ export default function Enigma() {
                 className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
                   activeTags.includes(tag)
                     ? 'bg-gold text-dark'
-                    : 'border-gold text-gold hover:bg-accent hover:text-dark'
+                    : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
                 }`}>
                 {tag}
               </button>
@@ -312,7 +312,7 @@ export default function Enigma() {
         </div>
 
         {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredFiles.map((file, i) => (
             <div
               key={i}
@@ -330,10 +330,9 @@ export default function Enigma() {
 
         {/* Scroll to Top Button */}
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
+    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
+  `}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

@@ -33,7 +33,7 @@ export default function Graphics() {
   const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
 
   return (
-    <div className="px-4 py-20 md:py-32 text-white">
+    <div className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <section className="max-w-4xl mx-auto space-y-6 text-center">
         {/* Header with two layers:
             - Base text (solid gold)
@@ -61,7 +61,7 @@ export default function Graphics() {
           Browse curated visual work categorized by project and purpose.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 pt-8 w-full">
           {pages.map(({ name, path, icon }, index) => {
             // On mobile, compute the offset from the left; on desktop, alternate left/right.
             const initialX = isMobile
@@ -78,7 +78,7 @@ export default function Graphics() {
                 animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
                 transition={{ delay: index * 0.03, duration: 0.1, ease: 'easeOut' }}
                 style={{ willChange: 'transform, opacity, filter' }}
-                className="bg-dark border border-gold rounded-xl p-6 hover:shadow-lg transition text-gold hover:bg-accent hover:text-dark text-lg font-heading flex items-center justify-center">
+                className="bg-dark border border-gold rounded-xl p-6 hover:shadow-lg transition text-gold hover:bg-accent hover:text-dark  text-lg md:text-xl font-heading flex items-center justify-center w-full h-14 md:h-15 lg:h-15 ">
                 <img
                   src={icon}
                   alt={`${name} icon`}

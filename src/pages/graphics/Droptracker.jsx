@@ -179,7 +179,9 @@ export default function Droptracker() {
     return matchesColor && matchesStyle;
   };
 
-  const filteredFiles = droptrackerFiles.files.filter(matchesFilters);
+  const filteredFiles = droptrackerFiles.files
+    .filter(matchesFilters)
+    .filter(file => file !== 'Original_Board.png' && file !== 'Sample_Populated_Boards.png');
 
   const renderColorButtons = () => (
     <div className="flex flex-wrap gap-2">
@@ -192,7 +194,7 @@ export default function Droptracker() {
             className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
               isActive
                 ? 'bg-gold text-dark'
-                : 'border-gold text-gold hover:bg-accent hover:text-dark'
+                : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
             }`}>
             {tag}
           </button>
@@ -212,7 +214,7 @@ export default function Droptracker() {
             className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
               isActive
                 ? 'bg-gold text-dark'
-                : 'border-gold text-gold hover:bg-accent hover:text-dark'
+                : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
             }`}>
             {tag}
           </button>
@@ -228,7 +230,7 @@ export default function Droptracker() {
   return (
     <div
       ref={scrollRef}
-      className="h-[calc(100vh-2rem)] no-scrollbar overflow-y-auto pt-[5.5rem] pb-[5.5rem] scroll-smooth">
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
       <section className="max-w-6xl mx-auto space-y-10">
         <div className="flex items-center gap-4">
           <Link to="/graphics" title="Back to Graphics Overview">
@@ -310,14 +312,14 @@ export default function Droptracker() {
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredFiles.map((file, i) => (
             <img
               key={i}
               src={`${droptrackerFiles.basePath}/${file}`}
               alt={file}
               loading="lazy"
-              className="cursor-zoom-in transition-transform hover:scale-105"
+              className="cursor-zoom-in transition-transform hover:scale-105 max-w-full"
               onClick={() => setSelected(file)}
             />
           ))}
@@ -325,10 +327,7 @@ export default function Droptracker() {
 
         {/* Scroll to Top Button */}
         <div
-          className={`
-            fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-            ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-          `}>
+          className={`fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300 ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}

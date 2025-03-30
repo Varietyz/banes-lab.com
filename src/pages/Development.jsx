@@ -75,18 +75,19 @@ export default function Development() {
 
   return (
     <motion.div
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-12 md:py-24"
+      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}>
       <section className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-heading text-gold text-center mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold text-center mb-6">
           My Development Projects
         </h2>
+
         <div className="border-b-2 border-gold w-24 mx-auto mb-8" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-6 lg:px-8">
           {repos.map(repo => (
             <motion.div
               key={repo.id}
@@ -102,7 +103,7 @@ export default function Development() {
       {/* Markdown Modal */}
       {selectedRepo && (
         <motion.div
-          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4 sm:p-6 lg:p-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -113,7 +114,7 @@ export default function Development() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="bg-dark text-white max-w-3xl w-full max-h-[80vh] overflow-y-auto no-scrollbar rounded-xl p-6 relative"
+            className="bg-dark text-white max-w-full sm:max-w-3xl w-full max-h-[80vh] overflow-y-auto no-scrollbar rounded-xl p-4 sm:p-6 relative"
             onClick={e => e.stopPropagation()}>
             <button
               onClick={closeModal}
@@ -138,7 +139,7 @@ export default function Development() {
             {readmeLoading ? (
               <div className="text-center text-gold">Loading README...</div>
             ) : (
-              <div className="markdown-body bg-dark text-white p-6 rounded-md">
+              <div className="markdown-body bg-dark text-white p-4 sm:p-6 rounded-md max-w-full overflow-x-auto">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{readmeContent}</ReactMarkdown>
               </div>
             )}
