@@ -6,9 +6,61 @@ import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 
 /**
- *
- * @param root0
- * @param root0.channelId
+ * ConfirmationModal Component
+ * Displays an informational modal with "Confirm" and "Abort" buttons.
+ * @param {object} props
+ * @param {function} props.onConfirm - Called when the user confirms account creation.
+ * @param {function} props.onAbort - Called when the user aborts the process.
+ */
+function ConfirmationModal({ onConfirm, onAbort }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+      <div className="w-full max-w-md p-6 bg-gray-800 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold text-gold text-center mb-4">Confirm Account Creation</h2>
+        <p className="text-white text-center mb-4">
+          Please note that your email is used solely for identification. We do not store your actual
+          email password. For security reasons, we recommend that you create a dedicated password
+          for this account. If you agree, please click "Confirm" to proceed. Otherwise, click
+          "Abort" to cancel.
+        </p>
+        <div className="flex gap-4">
+          <button
+            onClick={onConfirm}
+            className="flex-1 py-2 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
+            Confirm
+          </button>
+          <button
+            onClick={onAbort}
+            className="flex-1 py-2 border-2 border-gold text-gold font-bold rounded-full hover:bg-gray-700 transition duration-300">
+            Abort
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * FinalConfirmationModal Component
+ * Displays a final confirmation message after the user confirms.
+ */
+function FinalConfirmationModal() {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+      <div className="w-full max-w-md p-6 bg-gray-800 rounded-xl shadow-lg">
+        <h2 className="text-2xl font-bold text-gold text-center mb-4">Account Confirmed</h2>
+        <p className="text-white text-center mb-4">
+          Your account has been confirmed. Redirecting...
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * ChatBox Component
+ * @param {object} props
+ * @param {string} props.channelId - The channel ID to use in the chat
  */
 export default function ChatBox({ channelId }) {
   // Authentication state
@@ -17,12 +69,19 @@ export default function ChatBox({ channelId }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Temporary token storage before confirmation
+  const [tempToken, setTempToken] = useState('');
+
   // Chat state (only used if authenticated)
   const [input, setInput] = useState('');
   const [inputHeight, setInputHeight] = useState(40);
   const { messages, sendMessage, chatEndRef, addLocalMessage } = useChat(channelId);
 
-  // Check for token on mount
+  // Modal state
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationCompleted, setConfirmationCompleted] = useState(false);
+
+  // Check for token on mount (only confirmed tokens)
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) setIsAuthenticated(true);
@@ -46,14 +105,37 @@ export default function ChatBox({ channelId }) {
       );
 
       console.log('✅ Received successful response:', data);
-      localStorage.setItem('authToken', data.token);
-      setIsAuthenticated(true);
+      // Instead of saving the token immediately, store it temporarily.
+      setTempToken(data.token);
       setAuthError('');
-      window.location.reload();
+
+      // Show confirmation modal if account hasn't been confirmed before
+      if (!localStorage.getItem('accountConfirmed')) {
+        setShowConfirmation(true);
+      } else {
+        window.location.reload();
+      }
     } catch (error) {
       console.error('❌ Error during login request:', error.response?.data || error.message);
       setAuthError(error.response?.data?.message || 'Login failed');
     }
+  };
+
+  const handleConfirm = () => {
+    // On confirm, persist the token and mark account as confirmed
+    localStorage.setItem('authToken', tempToken);
+    localStorage.setItem('accountConfirmed', 'true');
+    setConfirmationCompleted(true);
+    setTimeout(() => {
+      window.location.reload();
+    }, 600);
+  };
+
+  const handleAbort = () => {
+    // On abort, clear the temporary token and close the modal
+    setTempToken('');
+    setShowConfirmation(false);
+    console.log('User aborted account confirmation.');
   };
 
   const handleSendMessage = message => {
@@ -76,8 +158,16 @@ export default function ChatBox({ channelId }) {
 
   return (
     <section className="w-full max-w-4xl rounded-xl mt-12 relative">
-      {/* Modal overlay shown if not authenticated */}
-      {!isAuthenticated && (
+      {/* If the confirmation modal should show, render it over everything */}
+      {showConfirmation &&
+        (confirmationCompleted ? (
+          <FinalConfirmationModal />
+        ) : (
+          <ConfirmationModal onConfirm={handleConfirm} onAbort={handleAbort} />
+        ))}
+
+      {/* If not authenticated and not in confirmation, show login modal */}
+      {!isAuthenticated && !showConfirmation && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
           <div className="w-full max-w-md p-6 bg-gray-800 rounded-xl shadow-lg">
             <h2 className="text-2xl font-bold text-gold text-center mb-4">Chat Login</h2>
@@ -118,7 +208,8 @@ export default function ChatBox({ channelId }) {
           </div>
         </div>
       )}
-      {/* Chat interface is rendered regardless but interaction is blocked by the modal if not logged in */}
+
+      {/* Chat interface */}
       <div className="flex flex-col">
         <ChatMessages messages={messages} chatEndRef={chatEndRef} inputHeight={inputHeight} />
         <ChatInput

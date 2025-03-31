@@ -22,7 +22,8 @@ export default function Development() {
     'banes-lab.com',
     'Lite-Utilities',
     'literegenmeter',
-    'Discord-Bot-Varietyz'
+    'Discord-Bot-Varietyz',
+    'banes-lab-bot'
   ];
 
   useEffect(() => {
