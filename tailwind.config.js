@@ -3,7 +3,17 @@
 
 module.exports = {
   content: ['./index.html', './src/**/*.{js,jsx}'],
-  safelist: ['bg-[url("/assets/images/Background.png")]'],
+  safelist: [
+    'bg-[url("/assets/images/Background.png")]',
+    'bg-accent',
+    'rounded',
+    'p-2',
+    'bg-gold',
+    'text-dark',
+    'hover:bg-accent',
+    'transition-all',
+    'duration-300'
+  ],
   theme: {
     extend: {
       colors: {

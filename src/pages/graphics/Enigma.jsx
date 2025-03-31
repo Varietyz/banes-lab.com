@@ -336,7 +336,8 @@ export default function Enigma() {
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}
-              className="bg-gold text-dark text-xl font-bold rounded-tl-2xl rounded-tr-2xl px-6 py-3 shadow-lg hover:bg-accent transition-all duration-300 animate-bounce"
+              className="bg-gold text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-accent transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
+              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
               title="Back to Top">
               ↑ Back to Top
             </button>
