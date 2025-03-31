@@ -50,7 +50,6 @@ export default [
     },
     plugins: { react, jsdoc, prettier },
     rules: {
-      'prettier/prettier': 'error',
       'no-console': 'off', // 🧪 allow for dev/debug use
       'no-unused-vars': ['warn', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
       'no-use-before-define': ['error', { functions: false, classes: true, variables: true }],

@@ -18,6 +18,7 @@
     "sync": "node scripts/updateGraphicsData.js"
   },
   "dependencies": {
+    "@wise-old-man/utils": "^3.3.8",
     "async-mutex": "^0.5.0",
     "discord.js": "^14.18.0",
     "dotenv": "^16.4.7",
