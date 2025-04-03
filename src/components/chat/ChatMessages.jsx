@@ -9,19 +9,18 @@ import remarkGfm from 'remark-gfm';
  * @param {object} props.chatEndRef - Ref for auto-scrolling to the latest message
  */
 export default function ChatMessages({ messages, chatEndRef }) {
-  // Default to 384px (Tailwind's h-96) and allow dynamic resizing.
-  const [height, setHeight] = useState(384);
+  const [height, setHeight] = useState(384); // Default height for the chat container
   const resizerRef = useRef(null);
+  const chatContainerRef = useRef(null); // Reference to the container that holds the messages
 
-  // Mouse handler for dragging to resize.
+  // Mouse handler for resizing the chat container
   const handleMouseDown = e => {
     e.preventDefault();
     const startY = e.clientY;
     const startHeight = height;
 
     const onMouseMove = eMove => {
-      // Calculate new height, with a minimum of 100px.
-      const newHeight = Math.max(100, startHeight + (eMove.clientY - startY));
+      const newHeight = Math.max(250, startHeight + (eMove.clientY - startY));
       setHeight(newHeight);
     };
 
@@ -34,12 +33,19 @@ export default function ChatMessages({ messages, chatEndRef }) {
     window.addEventListener('mouseup', onMouseUp);
   };
 
+  // Scroll listener to detect manual scrolling
+
   return (
     <div>
-      {/* Chat messages container with dynamic height */}
+      {/* Chat messages container with dynamic height and scrollable content */}
       <div
+        ref={chatContainerRef}
         className="overflow-y-auto p-4 bg-[#14141411] border border-gold rounded-lg text-white no-scrollbar"
-        style={{ height: `${height}px` }}>
+        style={{
+          height: `${height}px`,
+          maxHeight: '80vh',
+          overflowY: 'auto' // Allow manual scrolling
+        }}>
         {messages.length > 0 ? (
           messages.map((msg, index) => {
             const safeContent =
@@ -69,6 +75,7 @@ export default function ChatMessages({ messages, chatEndRef }) {
         ) : (
           <div className="text-center text-gray-400">No messages yet. Start the conversation!</div>
         )}
+        {/* Ref that marks the bottom of the messages list */}
         <div ref={chatEndRef} />
       </div>
 

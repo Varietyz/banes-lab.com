@@ -23,13 +23,13 @@ const staggerContainer = {
  *
  */
 export default function Contact() {
-  const channelId = '1354249424326361201';
+  const channelId = '1356688841536442398';
 
   const widgets = [
     {
       icon: <FaDiscord className="text-[#5865F2] text-6xl mb-3" />,
       title: 'Discord Server',
-      link: 'https://discord.gg/1112028351155142736',
+      link: 'https://discord.gg/PzDknHV5Rd',
       style: 'bg-[#5865F2]/10 border-[#5865F2]'
     },
     {
@@ -41,7 +41,7 @@ export default function Contact() {
     {
       icon: <FaGithub className="text-[#505050] text-6xl mb-3" />,
       title: 'GitHub Repositories',
-      link: 'https://github.com/Varietyz',
+      link: 'https://github.com/Varietyz?tab=repositories',
       style: 'bg-[#333]/10 border-[#505050]'
     },
     {

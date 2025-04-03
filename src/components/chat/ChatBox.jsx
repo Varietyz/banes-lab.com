@@ -89,8 +89,6 @@ export default function ChatBox({ channelId }) {
 
   const handleLogin = async e => {
     e.preventDefault();
-    console.log('📥 Sending login request...');
-
     try {
       const { data } = await axios.post(
         'https://ws.banes-lab.com:8040/api/login',
@@ -103,32 +101,49 @@ export default function ChatBox({ channelId }) {
           }
         }
       );
-
-      console.log('✅ Received successful response:', data);
-      // Instead of saving the token immediately, store it temporarily.
+      // Store token and userId
       setTempToken(data.token);
-      setAuthError('');
+      localStorage.setItem('userId', data.userId);
 
-      // Show confirmation modal if account hasn't been confirmed before
-      if (!localStorage.getItem('accountConfirmed')) {
+      if (!data.accountConfirmed) {
+        // New user: show the confirmation modal.
         setShowConfirmation(true);
       } else {
+        // Existing user: proceed without confirmation.
+        localStorage.setItem('authToken', data.token); // <== Add this line.
+        localStorage.setItem('accountConfirmed', 'true');
         window.location.reload();
       }
     } catch (error) {
-      console.error('❌ Error during login request:', error.response?.data || error.message);
+      console.error('Login failed:', error.response?.data || error.message);
       setAuthError(error.response?.data?.message || 'Login failed');
     }
   };
 
-  const handleConfirm = () => {
-    // On confirm, persist the token and mark account as confirmed
-    localStorage.setItem('authToken', tempToken);
-    localStorage.setItem('accountConfirmed', 'true');
-    setConfirmationCompleted(true);
-    setTimeout(() => {
-      window.location.reload();
-    }, 600);
+  const handleConfirm = async () => {
+    try {
+      const storedUserId = localStorage.getItem('userId');
+      if (!storedUserId) {
+        console.error('User ID not found; cannot create channel.');
+        return;
+      }
+      const token = localStorage.getItem('authToken') || tempToken;
+
+      if (!token) {
+        console.error('No token found in localStorage.');
+        return;
+      }
+
+      localStorage.setItem('authToken', tempToken);
+      localStorage.setItem('accountConfirmed', 'true');
+
+      setConfirmationCompleted(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 600);
+    } catch (err) {
+      console.error('❌ Error creating channel:', err.response?.data || err.message);
+    }
   };
 
   const handleAbort = () => {
@@ -149,6 +164,9 @@ export default function ChatBox({ channelId }) {
     };
 
     addLocalMessage(newMessage);
+    setTimeout(() => {
+      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
     const messageToSend = { ...newMessage };
     delete messageToSend.timestamp;
     sendMessage(messageToSend);
