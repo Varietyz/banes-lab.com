@@ -14,6 +14,8 @@ import Droptracker from './pages/graphics/Droptracker';
 import RuneLite from './pages/graphics/RuneLite';
 import Logos from './pages/graphics/Logos';
 import RoseyRS from './pages/graphics/Roseyrs';
+import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 import 'github-markdown-css/github-markdown-dark.css'; // or github-markdown-light.css
 
@@ -31,7 +33,10 @@ function AppContent() {
   const colorSchemes = {
     default: { scheme: 'gold', bgImage: '/assets/images/Background.png' },
     roseyrs: { scheme: 'pink', bgImage: '/assets/images/Background_rosey.png' },
-    runelite: { scheme: 'light', bgImage: '/assets/images/Background_light.png' }
+    runelite: {
+      scheme: 'light',
+      bgImage: '/assets/images/Background_light.png'
+    }
   };
 
   // Determine color scheme and background image based on the current path
@@ -70,6 +75,9 @@ function AppContent() {
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
           </Routes>
         </main>
         <Footer colorScheme={colorScheme} />

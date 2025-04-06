@@ -4,59 +4,73 @@ import io from 'socket.io-client';
 const socket = io('https://ws.banes-lab.com', {
   path: '/socket.io/',
   transports: ['websocket'],
+  withCredentials: true,
   secure: true,
   reconnectionAttempts: 10,
   reconnectionDelay: 3000
 });
 
+// Listen for server version info (to detect restarts)
 socket.on('serverInfo', ({ version }) => {
   const storedVersion = localStorage.getItem('serverVersion');
   if (storedVersion && storedVersion !== version) {
     console.log('Server restart detected. Reloading page...');
     window.location.reload();
   }
-  // Update the stored version
   localStorage.setItem('serverVersion', version);
 });
 
 /**
  * useChat Hook
  * @param {string} _channelId - The channel ID to join
- * @param userId
  */
-export default function useChat(_channelId, userId) {
+export default function useChat(_channelId) {
   const [messages, setMessages] = useState([]);
+  const [authExpired, setAuthExpired] = useState(false);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
     if (!_channelId) return;
-
-    if (socket.userId) return;
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      socket.emit('authenticate', { token }); // ✅ Authenticate socket immediately if token exists
-    }
+    socket.emit('joinChannel', { channelId: _channelId }, historicalMessages => {
+      if (historicalMessages) {
+        setMessages(historicalMessages);
+        setTimeout(() => {
+          chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    });
+    // Instead of reading the token from localStorage, rely on the cookie.
+    // Socket.io will send the cookie automatically via withCredentials.
+    // Optionally, you can emit an authentication event without a token payload,
+    // if your server is set up to read the token from the handshake.
+    socket.emit('authenticate');
 
     socket.on('tokenExpired', () => {
-      console.warn('⏳ Session expired. Redirecting to login.');
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('userId');
-      localStorage.removeItem('accountConfirmed');
-      window.location.reload(); // Force re-login by refreshing the page
+      console.warn('⏳ Session expired. Prompting re-login.');
+      // Set state to show the auth modal instead of reloading immediately
+      setAuthExpired(true);
     });
 
-    // Join the channel and request historical messages
+    // Listen for the server's authenticated event (after server-side cookie check)
     socket.on('authenticated', () => {
-      // Wait for the server to confirm authentication
       console.log('✅ Authentication successful, joining channel...');
       socket.emit('joinChannel', { channelId: _channelId });
+    });
+
+    socket.on('channelNotFound', data => {
+      console.warn('Channel not found, reloading page:', data.message);
+      // Optionally, display an error message or prompt
+      setAuthExpired(true);
+    });
+
+    socket.on('userNotFound', data => {
+      console.warn('User not found, reloading page:', data.message);
+      setAuthExpired(true);
     });
 
     // Listen for historical messages from the backend
     socket.on('historicalMessages', historicalMessages => {
       setMessages(historicalMessages);
-
-      // Scroll to the latest message
       setTimeout(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
@@ -72,7 +86,6 @@ export default function useChat(_channelId, userId) {
       } else {
         message.timestamp = new Date().toLocaleString();
       }
-
       setMessages(prevMessages => [...prevMessages, message]);
       setTimeout(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -87,22 +100,23 @@ export default function useChat(_channelId, userId) {
 
     socket.on('reconnect', () => {
       console.log('🔄 Socket reconnected successfully.');
+      // Optionally reload to reinitialize authentication after reconnection
       window.location.reload();
-      socket.emit('join', { channelId: _channelId });
+      socket.emit('joinChannel', { channelId: _channelId });
     });
 
     return () => {
       socket.off('message', handleMessage);
       socket.emit('leave', { channelId: _channelId });
     };
-  }, [_channelId, userId]);
+  }, [_channelId]);
 
   /**
    * Sends a message to the server
    * @param {Object} payload - Message data
    */
   function sendMessage(payload) {
-    const serverTimestamp = new Date().toISOString(); // ✅ Always use ISO format for the server
+    const serverTimestamp = new Date().toISOString(); // Always use ISO format for the server
     payload.serverTimestamp = serverTimestamp;
     socket.emit('sendMessage', payload, response => {
       console.log('Message sent successfully:', response);
@@ -114,7 +128,7 @@ export default function useChat(_channelId, userId) {
    * @param {Object} message - The message object to be added
    */
   function addLocalMessage(message) {
-    message.timestamp = new Date().toLocaleString(); // ✅ Local readable timestamp
+    message.timestamp = new Date().toLocaleString(); // Local readable timestamp
     setMessages(prev => [...prev, message]);
   }
 
@@ -122,6 +136,8 @@ export default function useChat(_channelId, userId) {
     messages,
     sendMessage,
     chatEndRef,
-    addLocalMessage
+    addLocalMessage,
+    authExpired,
+    resetAuth: () => setAuthExpired(false)
   };
 }

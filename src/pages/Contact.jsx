@@ -64,6 +64,7 @@ export default function Contact() {
 
   return (
     <LazyMotion features={domAnimation}>
+      §<div className="fixed inset-0 z-0 bg-gradient-to-b from-[#101010] to-[#1a1a1a] opacity-90" />
       <div className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
         <m.section
           ref={ref}

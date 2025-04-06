@@ -1,0 +1,16 @@
+{
+  "tagname-lowercase": true,
+  "attr-lowercase": true,
+  "attr-value-double-quotes": true,
+  "inline-script": false,
+  "inline-style": false,
+  "img-src": ["https://", "http://"],
+  "no-relative-urls": true,
+  "doctype-html5": true,
+  "attr-unsafe": false,
+  "id-unique": true,
+  "script-src": ["self", "https://trusted-scripts.com"],
+  "form-method": "post",
+  "no-duplicate-id": true,
+  "require-doctype": true
+}
