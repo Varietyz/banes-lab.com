@@ -37,9 +37,11 @@ export const enigmaRoot = {
 export const logos = {
   basePath: '/assets/images/logos',
   files: [
-    'a_varietyz_logo_main.png',
-    'b_rosey_logo.png',
-    'c_enigma_logo_main.png'
+    'a_banes-lab_logo.png',
+    'b_varietyz_logo_main.png',
+    'c_lotus-den_logo.png',
+    'd_rosey_logo.png',
+    'e_enigma_logo_main.png'
   ],
 };
 

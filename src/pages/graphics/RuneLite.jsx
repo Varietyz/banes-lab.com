@@ -315,13 +315,13 @@ export default function RuneLite() {
         {/* Header and Description Area */}
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-6">
           {/* Description */}
-          <div className="w-full lg:max-w-[45%]  px-4 sm:px-6 font-bold space-y-4 text-sm sm:text-base lg:text-lg font-body text-shadow-md ">
+          <div className="w-full lg:max-w-[45%]  px-4 sm:px-6 space-y-4 text-sm sm:text-base lg:text-lg font-body text-shadow-md ">
             <p>
               {currentTheme === 'runeliteTheme'
                 ? 'Sleek, dark UI built to enhance the RuneLite visual experience. Ideal for low-light environments and providing sharp contrast for better visibility.'
                 : 'A luxurious theme with rich gold accents and elegant borders, providing a premium, high-quality user interface for RuneLite enthusiasts.'}
             </p>
-            <p className="text-white text-xs italic">
+            <p className="font-body text-white text-xs italic">
               These themes are designed to be applied through the{' '}
               <span className="text-black font-semibold">Resource Packs Plugin</span> on RuneLite.
               Simply drag and drop the folders path into the plugin’s configuration panel or install
@@ -400,7 +400,7 @@ export default function RuneLite() {
           <div className="max-w-6xl mx-auto flex justify-center">
             <button
               onClick={scrollToTop}
-              className="bg-dark text-white text-base font-bold px-10 py-2 shadow-lg hover:bg-dark transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
+              className="bg-dark text-white text-base font-bold px-10 py-2 shadow-lg hover:bg-dark/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
               style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
               title="Back to Top">
               ↑ Back to Top

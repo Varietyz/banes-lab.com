@@ -6,23 +6,23 @@ import '../styles/markdown.css';
 /**
  *
  */
-export default function PrivacyPolicy() {
+export default function SiteInfo() {
   const [mdContent, setMdContent] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {
     // Adjust this path if you place privacy.md somewhere else
-    fetch('/data/privacy.md')
+    fetch('/data/site-info.md')
       .then(res => {
         if (!res.ok) {
-          throw new Error(`Failed to load privacy.md (status ${res.status})`);
+          throw new Error(`Failed to load site-info.md (status ${res.status})`);
         }
         return res.text();
       })
       .then(text => setMdContent(text))
       .catch(err => {
         console.error(err);
-        setError('Unable to load the Privacy Policy at this time.');
+        setError('Unable to load the site information at this time.');
       });
   }, []);
 
@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
   }
 
   if (!mdContent) {
-    return <div className="text-gold mt-10 text-center">Loading Privacy Policy…</div>;
+    return <div className="text-gold mt-10 text-center">Loading Site Information…</div>;
   }
 
   return (

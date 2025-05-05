@@ -6,17 +6,27 @@ import { ArrowLeft } from 'lucide-react';
 
 const descriptions = [
   {
-    title: 'Varietyz Logo (Main)',
+    title: 'Banes Lab',
+    text: 'The Banes Lab logo features a sleek Erlenmeyer flask rendered in a smooth silver gradient, filled with a vibrant sky-blue solution that evokes innovation and clarity. Accented by a bold gold logotype (#cea555), it strikes the perfect balance between scientific rigor and a modern, approachable aesthetic. This design highlights the lab’s commitment to cutting-edge research and reliable results, making it ideal for publications, conference materials, and digital outreach.',
+    color: '#cea555'
+  },
+  {
+    title: 'Varietyz',
     text: 'The primary logo for Varietyz showcases a clean, modern aesthetic built for versatility across various platforms. Utilizing a bold gold hue (#cea555), it strikes the perfect balance between elegance and clarity. This design prioritizes readability and brand consistency, making it ideal for high-impact branding efforts, including merchandise, promotional material, and digital interfaces.',
     color: '#cea555'
   },
   {
-    title: 'RoseyRS Logo',
+    title: 'Lotus Den',
+    text: 'The Lotus Den logo presents a stylized lotus blossom outlined in a sleek metallic gradient, transitioning from deep sapphire to sky-blue. A soft silver center petal adds balance and depth, while the vivid blue tones (#4DA8DA) convey tranquility, growth, and clarity. This harmonious design evokes a sense of calm sophistication—ideal for wellness brands, meditation studios, and spa offerings seeking a serene yet modern identity.',
+    color: '#4DA8DA'
+  },
+  {
+    title: 'RoseyRS',
     text: 'The RoseyRS logo is a testament to sophistication and modernity, featuring a seamless blend of Rosey Pink (#D66894) and Deep Purple (#512A43). The smooth curves and luxurious color palette reflect a high-quality brand that values creativity and premium presentation. This logo is crafted to stand out across social media, community events, and promotional graphics, maintaining its distinct visual identity.',
     color: '#D66894'
   },
   {
-    title: 'Enigma Logo',
+    title: 'Enigma',
     text: "The Enigma logo employs a dark aesthetic accentuated by vibrant gold highlights. Its sharp, cohesive design represents the brand's dedication to quality and complexity. The combination of sleek lines and powerful contrast reflects the sophistication and depth of the Enigma identity. This logo is perfect for use on merchandise, branding materials, and digital platforms, where clarity and impact are essential.",
     color: '#cea555'
   }
@@ -60,7 +70,7 @@ export default function Logos() {
               i % 2 === 0 ? 'lg:flex-row-reverse fade-in-right' : 'fade-in-left'
             }`}>
             {/* Image */}
-            <div className="w-full lg:w-2/3 flex justify-center cursor-zoom-in transition-transform hover:scale-105">
+            <div className="w-full lg:w-2/3 flex justify-center transition-transform hover:scale-105">
               <img
                 src={`${logos.basePath}/${file}`}
                 alt={file}

@@ -39,10 +39,7 @@ export default function useChat(_channelId) {
         }, 100);
       }
     });
-    // Instead of reading the token from localStorage, rely on the cookie.
-    // Socket.io will send the cookie automatically via withCredentials.
-    // Optionally, you can emit an authentication event without a token payload,
-    // if your server is set up to read the token from the handshake.
+
     socket.emit('authenticate');
 
     socket.on('tokenExpired', () => {

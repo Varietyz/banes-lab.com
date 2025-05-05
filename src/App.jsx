@@ -1,21 +1,24 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
 import Header from './components/layout/Header';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import Home from './pages/Home';
-import Graphics from './pages/graphics/Graphics';
-import Development from './pages/Development';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Roadmap from './pages/Roadmap';
-import Varietyz from './pages/graphics/Varietyz';
-import Enigma from './pages/graphics/Enigma';
-import Droptracker from './pages/graphics/Droptracker';
-import RuneLite from './pages/graphics/RuneLite';
-import Logos from './pages/graphics/Logos';
-import RoseyRS from './pages/graphics/Roseyrs';
-import TermsOfService from './pages/TermsOfService';
-import PrivacyPolicy from './pages/PrivacyPolicy';
+
+const Home = lazy(() => import('./pages/Home'));
+const Graphics = lazy(() => import('./pages/graphics/Graphics'));
+const Development = lazy(() => import('./pages/Development'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Roadmap = lazy(() => import('./pages/Roadmap'));
+const Varietyz = lazy(() => import('./pages/graphics/Varietyz'));
+const Enigma = lazy(() => import('./pages/graphics/Enigma'));
+const Droptracker = lazy(() => import('./pages/graphics/Droptracker'));
+const RuneLite = lazy(() => import('./pages/graphics/RuneLite'));
+const Logos = lazy(() => import('./pages/graphics/Logos'));
+const RoseyRS = lazy(() => import('./pages/graphics/Roseyrs'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const SiteInfo = lazy(() => import('./pages/SiteInfo'));
 
 import 'github-markdown-css/github-markdown-dark.css'; // or github-markdown-light.css
 
@@ -48,18 +51,38 @@ function AppContent() {
 
   const { scheme: colorScheme, bgImage } = getColorScheme();
 
+  const cspNonce = document.querySelector('meta[name="csp-nonce"]').getAttribute('content');
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image changes based on the theme */}
-      <div
-        className="absolute inset-0 bg-dark bg-cover bg-center scale-110 pointer-events-none -z-10"
-        style={{ backgroundImage: `url(${bgImage})` }}
-      />
+      <div>
+        <script nonce={cspNonce} src="https://cdn.jsdelivr.net/npm/emoji-picker-react"></script>
+        <style nonce={cspNonce}>{`
+    body {
+      background-color: #101010;
+    }
+    .dynamic-bg {
+  background-image: url(${bgImage}) !important;
+}
 
-      <div className="relative z-10 flex flex-col min-h-screen">
+  `}</style>
+      </div>
+
+      <div className="absolute inset-0 bg-dark bg-cover bg-center scale-110 pointer-events-none -z-10 dynamic-bg" />
+
+      <div className="flex flex-col min-h-screen  ">
         <Header colorScheme={colorScheme} />
         <Navbar colorScheme={colorScheme} />
-        <main className="flex-grow mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <main
+          className="
+          absolute
+          left-0
+          right-0    
+          overflow-y-auto
+          no-scrollbar
+          
+        ">
           <Routes>
             <Route path="/" element={<Home />} />
 
@@ -77,7 +100,8 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/service" element={<TermsOfService />} />
+            <Route path="/info" element={<SiteInfo />} />
           </Routes>
         </main>
         <Footer colorScheme={colorScheme} />

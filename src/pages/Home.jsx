@@ -54,9 +54,9 @@ export default function Home() {
             className="w-full max-w-3xl mx-auto mb-16">
             {/* Logo Animation */}
             <m.img
-              src="/assets/images/varietyz/varietyz_logo.gif"
+              src="/assets/images/banes_lab/700px_Main_Animated.gif"
               alt="Varietyz Logo"
-              className="w-40 h-40 mx-auto mb-6 rounded-full border border-gold shadow-md"
+              className="w-40 h-40 mx-auto mb-6 rounded-full  shadow-md"
               variants={scaleVariant}
               transition={{ duration: totalDuration, ease: 'backOut' }}
             />
@@ -161,6 +161,22 @@ export default function Home() {
                   <span className="text-gold font-semibold">impactful</span> and{' '}
                   <span className="text-gold font-semibold">innovative</span> solutions that truly
                   resonate.
+                </p>
+                <p className="leading-relaxed pt-8 text-center">
+                  For detailed information about my platform’s architecture, policies, and terms,
+                  please visit the
+                  <Link to="/service" className="text-gold font-semibold hover:underline ml-1">
+                    Terms of Service
+                  </Link>
+                  ,
+                  <Link to="/privacy" className="text-gold font-semibold hover:underline ml-1">
+                    Privacy Policy
+                  </Link>
+                  , and
+                  <Link to="/info" className="text-gold font-semibold hover:underline ml-1">
+                    Website Information
+                  </Link>{' '}
+                  pages.
                 </p>
               </m.div>
             </div>

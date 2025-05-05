@@ -38,7 +38,9 @@ export default function Graphics() {
         {/* Header with two layers:
             - Base text (solid gold)
             - Animated overlay (light beam effect with opacity keyframes) */}
-        <h2 className="text-4xl font-heading relative" style={{ color: '#cea555' }}>
+        <h2
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold text-center mb-6 relative"
+          style={{ color: '#cea555' }}>
           Graphics Showcase
           <motion.span
             className="absolute inset-0 flex items-center justify-center pointer-events-none"

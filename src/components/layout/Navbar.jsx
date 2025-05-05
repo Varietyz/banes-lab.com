@@ -73,7 +73,10 @@ export default function Navbar({ colorScheme = 'gold' }) {
 
       {/* Mobile Menu Toggle */}
       <div className="sm:hidden flex items-center justify-between w-full h-full px-4 transform translate-y-2">
-        <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="text-accent">
+        <button
+          onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-accent"
+          style={{ color: textColor }}>
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
@@ -88,7 +91,7 @@ export default function Navbar({ colorScheme = 'gold' }) {
               key={item}
               to={`/${item === 'Home' ? '' : item.toLowerCase()}`}
               className="font-body font-semibold text-lg hover:scale-105 hover:shadow"
-              style={{ color: textColor }}>
+              style={{ color: textColor === '#101010' ? '#ffffff' : textColor }}>
               {item}
             </Link>
           ))}

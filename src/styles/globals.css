@@ -9,6 +9,40 @@
   --footer-height: 80px; /* adjust as needed */
 }
 
+/* Cinzel (originally used weights: 500, 700) */
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/src/assets/fonts/Cinzel-Medium.woff2') format('woff2');
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url('/src/assets/fonts/Cinzel-Bold.woff2') format('woff2');
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Montserrat (originally used weights: 400, 600) */
+@font-face {
+  font-family: 'Gontserrat';
+  src: url('/src/assets/fonts/Gontserrat-Regular.woff2') format('woff2');
+  font-weight: 300; /* Regular */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gontserrat';
+  src: url('/src/assets/fonts/Gontserrat-SemiBold.woff2') format('woff2');
+  font-weight: 500; /* SemiBold */
+  font-style: normal;
+  font-display: swap;
+}
+
 /* 
    1) Slide In from Bottom (shorter distance = smoother)
    We also use a slightly faster, more refined easing.
@@ -87,4 +121,28 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
+}
+
+/* Container for the emoji picker */
+.emoji-picker-container {
+  position: relative;
+  z-index: 50;
+  border: 1px solid #cea555;
+  background-color: #101010;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+
+/* Adjust the size of emoji items */
+.emoji-mart .emoji-mart-emoji {
+  font-size: 16px;
+}
+
+/* Mobile Compatibility */
+@media (max-width: 768px) {
+  .emoji-picker-override .emoji-picker-react {
+    width: 280px;
+    max-height: 250px;
+  }
 }

@@ -64,14 +64,14 @@ export default function Contact() {
 
   return (
     <LazyMotion features={domAnimation}>
-      §<div className="fixed inset-0 z-0 bg-gradient-to-b from-[#101010] to-[#1a1a1a] opacity-90" />
+      <div className="fixed inset-0 z-0 bg-gradient-to-b  " />
       <div className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
         <m.section
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={staggerContainer}
-          className="max-w-4xl xl:max-w-6xl mx-auto border border-gold rounded-xl shadow-2xl p-8 sm:p-12 md:p-16 bg-dark/90 backdrop-blur-sm">
+          className="max-w-4xl xl:max-w-6xl mx-auto border border-gold rounded-xl shadow-2xl p-8 sm:p-12 md:p-16 backdrop-blur-sm">
           <m.h2
             variants={fadeInVariant}
             className="text-4xl md:text-5xl lg:text-6xl font-heading text-gold text-center mb-4">
