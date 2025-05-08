@@ -1,6 +1,5 @@
 // 📂 src/pages/graphics/Logos.jsx
 import { logos } from '../../data/graphicsData';
-import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
@@ -36,61 +35,44 @@ const descriptions = [
  *
  */
 export default function Logos() {
-  const [showTopButton, setShowTopButton] = useState(false);
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const node = scrollRef.current;
-    if (!node) return;
-
-    const handleScroll = () => setShowTopButton(node.scrollTop > 600);
-    node.addEventListener('scroll', handleScroll);
-
-    return () => node.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
-      <section className="max-w-6xl mx-auto space-y-20 px-4">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-12 sm:mb-16 flex-wrap">
-          <Link to="/graphics" title="Back to Graphics Overview">
-            <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
-          </Link>
-          <h2 className="text-5xl font-heading text-gold">Logo Designs</h2>
-        </div>
+    <section className="max-w-6xl mx-auto space-y-20 px-4">
+      {/* Header */}
+      <div className="flex items-center gap-4 mb-12 sm:mb-16 flex-wrap">
+        <Link to="/graphics" title="Back to Graphics Overview">
+          <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
+        </Link>
+        <h2 className="text-5xl font-heading text-gold">Logo Designs</h2>
+      </div>
 
-        {/* Logo Content */}
-        {logos.files.map((file, i) => (
-          <div
-            key={i}
-            className={`flex flex-col lg:flex-row items-center justify-between gap-8 mb-12 sm:mb-16 transition-all duration-700 transform ${
-              i % 2 === 0 ? 'lg:flex-row-reverse fade-in-right' : 'fade-in-left'
-            }`}>
-            {/* Image */}
-            <div className="w-full lg:w-2/3 flex justify-center transition-transform hover:scale-105">
-              <img
-                src={`${logos.basePath}/${file}`}
-                alt={file}
-                className="rounded-xl border border-gold bg-dark p-4 shadow-xl max-w-[400px] w-full"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Description */}
-            <div className="w-full lg:w-1/2 space-y-4 px-4 text-sm sm:text-base lg:text-lg">
-              <h3
-                className="text-4xl font-heading transition-all duration-500"
-                style={{ color: descriptions[i].color }}>
-                {descriptions[i].title}
-              </h3>
-              <p className="text-xl font-body text-white/80">{descriptions[i].text}</p>
-            </div>
+      {/* Logo Content */}
+      {logos.files.map((file, i) => (
+        <div
+          key={i}
+          className={`flex flex-col lg:flex-row items-center justify-between gap-8 mb-12 sm:mb-16 transition-all duration-700 transform ${
+            i % 2 === 0 ? 'lg:flex-row-reverse fade-in-right' : 'fade-in-left'
+          }`}>
+          {/* Image */}
+          <div className="w-full lg:w-2/3 flex justify-center transition-transform hover:scale-105">
+            <img
+              src={`${logos.basePath}/${file}`}
+              alt={file}
+              className="rounded-xl border border-gold bg-dark p-4 shadow-xl max-w-[400px] w-full"
+              loading="lazy"
+            />
           </div>
-        ))}
-      </section>
+
+          {/* Description */}
+          <div className="w-full lg:w-1/2 space-y-4 px-4 text-sm sm:text-base lg:text-lg">
+            <h3
+              className="text-4xl font-heading transition-all duration-500"
+              style={{ color: descriptions[i].color }}>
+              {descriptions[i].title}
+            </h3>
+            <p className="text-xl font-body text-white/80">{descriptions[i].text}</p>
+          </div>
+        </div>
+      ))}
 
       {/* Styles for animations */}
       <style>
@@ -115,6 +97,6 @@ export default function Logos() {
           }
         `}
       </style>
-    </div>
+    </section>
   );
 }

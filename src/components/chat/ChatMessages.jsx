@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+// src/components/chat/ChatMessages.jsx
+import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -9,11 +10,19 @@ import remarkGfm from 'remark-gfm';
  * @param {object} props.chatEndRef - Ref for auto-scrolling to the latest message
  */
 export default function ChatMessages({ messages, chatEndRef }) {
-  const [height, setHeight] = useState(384); // Default height for the chat container
+  const [height, setHeight] = useState(384); // Default height
   const resizerRef = useRef(null);
-  const chatContainerRef = useRef(null); // Reference to the container that holds the messages
+  const containerRef = useRef(null);
 
-  // Mouse handler for resizing the chat container
+  // Auto-scroll just the messages box when messages change
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messages]);
+
+  // Mouse-handler for dragging to resize the chat box
   const handleMouseDown = e => {
     e.preventDefault();
     const startY = e.clientY;
@@ -33,18 +42,16 @@ export default function ChatMessages({ messages, chatEndRef }) {
     window.addEventListener('mouseup', onMouseUp);
   };
 
-  // Scroll listener to detect manual scrolling
-
   return (
     <div>
-      {/* Chat messages container with dynamic height and scrollable content */}
+      {/* Scrollable chat container */}
       <div
-        ref={chatContainerRef}
+        ref={containerRef}
         className="overflow-y-auto p-4 bg-[#14141411] border border-gold rounded-lg text-white no-scrollbar"
         style={{
           height: `${height}px`,
           maxHeight: '80vh',
-          overflowY: 'auto' // Allow manual scrolling
+          overflowY: 'auto'
         }}>
         {messages.length > 0 ? (
           messages.map((msg, index) => {
@@ -75,7 +82,7 @@ export default function ChatMessages({ messages, chatEndRef }) {
         ) : (
           <div className="text-center text-gray-400">No messages yet. Start the conversation!</div>
         )}
-        {/* Ref that marks the bottom of the messages list */}
+        {/* Marker at the bottom so chatEndRef.scrollIntoView() scrolls this box */}
         <div ref={chatEndRef} />
       </div>
 

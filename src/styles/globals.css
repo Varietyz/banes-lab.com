@@ -43,6 +43,55 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Righteous';
+  src: url('/src/assets/fonts/Righteous-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/src/assets/fonts/Kanit-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/src/assets/fonts/Kanit-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Source Code Pro (used for monospace/code blocks) */
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/src/assets/fonts/SourceCodePro-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/src/assets/fonts/SourceCodePro-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RuneScape Bold';
+  src: url('/src/assets/fonts/runescape_bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* 
    1) Slide In from Bottom (shorter distance = smoother)
    We also use a slightly faster, more refined easing.

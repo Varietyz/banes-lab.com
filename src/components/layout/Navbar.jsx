@@ -1,64 +1,29 @@
 // 📂 src/components/layout/Navbar.jsx
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react'; // Using lucide-react icons for lightweight SVGs
+import { Menu, X } from 'lucide-react';
+import { colorSchemes } from '../../utils/colorSchemes';
 
 /**
- * @param {object} root0
- * @param {string} root0.colorScheme - Determines the color scheme for the navbar
+ * @param {object} props
+ * @param {string} props.colorScheme - Determines the color scheme for the navbar
+ * @param ref
  */
-export default function Navbar({ colorScheme = 'gold' }) {
-  // Define different color schemes
-  const colorSchemes = {
-    gold: {
-      textColor: '#cea555',
-      borderColor: '#cea555',
-      backgroundColor: '#101010'
-    },
-    pink: {
-      textColor: '#D66894',
-      borderColor: '#D66894',
-      backgroundColor: '#101010'
-    },
-    blue: {
-      textColor: '#5DADE2',
-      borderColor: '#5DADE2',
-      backgroundColor: '#0a1d37'
-    },
-    green: {
-      textColor: '#27AE60',
-      borderColor: '#27AE60',
-      backgroundColor: '#102a12'
-    },
-    purple: {
-      textColor: '#9B59B6',
-      borderColor: '#9B59B6',
-      backgroundColor: '#1a0b26'
-    },
-    light: {
-      textColor: '#101010',
-      borderColor: '#101010',
-      backgroundColor: '#E5E7EB'
-    }
-  };
-
-  // Fallback to gold if the provided colorScheme is not recognized
+function NavbarComponent({ colorScheme = 'gold' }, ref) {
   const { textColor, borderColor, backgroundColor } =
     colorSchemes[colorScheme] || colorSchemes.gold;
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const navItems = ['Home', 'Graphics', 'Development', 'Roadmap', 'About', 'Contact'];
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 h-14 z-40 border-b flex items-center justify-center transition-all duration-500"
+      ref={ref}
+      className="fixed top-0 left-0 right-0 h-14 z-40 border-b flex items-center bg-dark border-gold justify-center transition-all duration-500"
       style={{ borderColor, backgroundColor }}>
       {/* Desktop Links */}
       <div className="hidden sm:flex h-full w-full max-w-6xl items-center justify-center">
         <div className="flex items-center justify-center gap-6 h-full transform translate-y-2">
-          {' '}
-          {/* Shifted downwards */}
           {navItems.map(item => (
             <Link
               key={item}
@@ -100,3 +65,6 @@ export default function Navbar({ colorScheme = 'gold' }) {
     </nav>
   );
 }
+
+const Navbar = React.forwardRef(NavbarComponent);
+export default Navbar;

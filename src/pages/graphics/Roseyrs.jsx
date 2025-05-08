@@ -6,10 +6,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import Header from '../../components/layout/Header';
-
 // Tag grouping
 const tags = ['UI', 'Logo', 'Banner', 'Event', 'Animated'];
 
@@ -145,7 +141,6 @@ function FullscreenViewer({ selected, onClose, osrsRoseyrs }) {
  */
 export default function RoseyRS() {
   const [selected, setSelected] = useState(null);
-  const [showTopButton, setShowTopButton] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
   const scrollRef = useRef(null);
   const [sortedFiles, setSortedFiles] = useState([]);
@@ -205,9 +200,7 @@ export default function RoseyRS() {
 
     fetchImageSizes();
     if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 200);
-    node.addEventListener('scroll', handleScroll);
-    return () => node.removeEventListener('scroll', handleScroll);
+    return () => {};
   }, [osrsRoseyrs.files]);
 
   const toggleTag = tag => {
@@ -225,139 +218,111 @@ export default function RoseyRS() {
 
   const filteredFiles = sortedFiles.filter(matchesTags);
 
-  const scrollToTop = () => {
-    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
-      <Header colorScheme="pink" />
-      <Navbar colorScheme="pink" />
-
-      <section className="max-w-6xl mx-auto space-y-10 px-4">
-        {/* Header and Description Area */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-6">
-          <div className="w-full lg:max-w-[45%] space-y-4 text-base font-body text-white mt-2 leading-relaxed">
-            {' '}
-            {/* Adjusted the width to match the image */}
-            <div className="flex items-center gap-4">
-              <Link to="/graphics" title="Back to Graphics Overview">
-                <ArrowLeft size={36} className="text-rosey hover:text-rosey transition" />
-              </Link>
-              <h2 className="text-4xl font-heading text-rosey">RoseyRS Graphics</h2>
-            </div>
-            <div className="space-y-4 text-lg font-body text-white/80 mt-4">
-              <div className="space-y-4 text-base font-body text-white mt-2 leading-relaxed">
-                <p>
-                  The <span className="text-rosey font-bold">RoseyRS</span> visuals are crafted with
-                  a refined elegance that blends creativity, cohesion, and premium presentation.
-                  Designed with a rich palette of{' '}
-                  <span className="text-rosey">
-                    Rosey Pink (#D66894), Deep Purple (#512A43), Charcoal Black (#222222)
-                  </span>
-                  , the visual identity embodies a perfect balance of sophistication and modern
-                  appeal.
-                </p>
-                <p>
-                  This entire collection, including logos, banners, event art, and animated assets,
-                  was created solely by me to establish a consistent and high-quality aesthetic for{' '}
-                  <span className="text-rosey font-bold">RoseyRS</span>. From conceptualization to
-                  execution, each piece is designed to enhance the user experience through
-                  meticulous attention to alignment, sharp detail, and a polished finish.
-                </p>
-                <p>
-                  These graphics serve various purposes, from promotional materials and social media
-                  presence to community engagement and branding consistency. Every asset reflects
-                  the brand's distinctive style, ensuring seamless integration across platforms.
-                </p>
-              </div>
-            </div>
+    <section className="max-w-6xl mx-auto space-y-5 px-4">
+      {/* Header and Description Area */}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-6">
+        <div className="w-full lg:max-w-[45%] space-y-4 text-base font-body text-white mt-2 leading-relaxed">
+          {' '}
+          {/* Adjusted the width to match the image */}
+          <div className="flex items-center gap-4">
+            <Link to="/graphics" title="Back to Graphics Overview">
+              <ArrowLeft size={36} className="text-rosey hover:text-rosey transition" />
+            </Link>
+            <h2 className="text-4xl font-heading text-rosey">RoseyRS Graphics</h2>
           </div>
-
-          {/* Display Animated Banner */}
-          <div className="w-full lg:w-[35%] flex justify-center transition-transform mt-6 lg:mt-0">
-            {' '}
-            {/* Matching width for consistency */}
-            <img
-              src={`${osrsRoseyrs.basePath}/Rosey_Logo_animated.gif`}
-              alt="RoseyRS Animated Banner"
-              className="rounded-lg  max-w-full"
-              onClick={() => setSelected('Rosey_Logo_animated.gif')}
-            />
+          <div className="space-y-4 text-lg font-body text-white/80 mt-4">
+            <div className="space-y-4 text-base font-body text-white mt-2 leading-relaxed">
+              <p>
+                The <span className="text-rosey font-bold">RoseyRS</span> visuals are crafted with a
+                refined elegance that blends creativity, cohesion, and premium presentation.
+                Designed with a rich palette of{' '}
+                <span className="text-rosey">
+                  Rosey Pink (#D66894), Deep Purple (#512A43), Charcoal Black (#222222)
+                </span>
+                , the visual identity embodies a perfect balance of sophistication and modern
+                appeal.
+              </p>
+              <p>
+                This entire collection, including logos, banners, event art, and animated assets,
+                was created solely by me to establish a consistent and high-quality aesthetic for{' '}
+                <span className="text-rosey font-bold">RoseyRS</span>. From conceptualization to
+                execution, each piece is designed to enhance the user experience through meticulous
+                attention to alignment, sharp detail, and a polished finish.
+              </p>
+              <p>
+                These graphics serve various purposes, from promotional materials and social media
+                presence to community engagement and branding consistency. Every asset reflects the
+                brand's distinctive style, ensuring seamless integration across platforms.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Fullscreen Viewer */}
-        {selected && (
-          <FullscreenViewer
-            selected={selected}
-            onClose={() => setSelected(null)}
-            osrsRoseyrs={osrsRoseyrs}
+        {/* Display Animated Banner */}
+        <div className="w-full lg:w-[35%] flex justify-center transition-transform mt-6 lg:mt-0">
+          {' '}
+          {/* Matching width for consistency */}
+          <img
+            src={`${osrsRoseyrs.basePath}/Rosey_Logo_animated.gif`}
+            alt="RoseyRS Animated Banner"
+            className="rounded-lg  max-w-full"
+            onClick={() => setSelected('Rosey_Logo_animated.gif')}
           />
-        )}
-
-        {/* Tag Filters */}
-        <div className="space-y-4">
-          <div className="text-rosey font-heading text-lg">Filter Tags</div>
-          <div className="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
-                  activeTags.includes(tag)
-                    ? 'bg-rosey text-dark'
-                    : 'bg-[#512A43] border-rosey text-white/85 hover:bg-rosey hover:text-dark'
-                }`}>
-                {tag}
-              </button>
-            ))}
-          </div>
-          {activeTags.length > 0 && (
-            <button
-              onClick={clearTags}
-              className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-rosey rounded-full hover:bg-rosey transition">
-              Clear Filters
-            </button>
-          )}
         </div>
+      </div>
 
-        {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {filteredFiles.map((file, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
-              onClick={() => setSelected(file)}>
-              <img
-                src={`${osrsRoseyrs.basePath}/${file}`}
-                alt={file}
-                className="object-contain mx-auto rounded-md max-w-full h-auto"
-                loading="lazy"
-              />
-            </div>
+      {/* Fullscreen Viewer */}
+      {selected && (
+        <FullscreenViewer
+          selected={selected}
+          onClose={() => setSelected(null)}
+          osrsRoseyrs={osrsRoseyrs}
+        />
+      )}
+
+      {/* Tag Filters */}
+      <div className="space-y-4">
+        <div className="text-rosey font-heading text-lg">Filter Tags</div>
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => toggleTag(tag)}
+              className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
+                activeTags.includes(tag)
+                  ? 'bg-rosey text-dark'
+                  : 'bg-[#512A43] border-rosey text-white/85 hover:bg-rosey hover:text-dark'
+              }`}>
+              {tag}
+            </button>
           ))}
         </div>
+        {activeTags.length > 0 && (
+          <button
+            onClick={clearTags}
+            className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-rosey rounded-full hover:bg-rosey transition">
+            Clear Filters
+          </button>
+        )}
+      </div>
 
-        {/* Scroll to Top Button */}
-        <div
-          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
-    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-  `}>
-          <div className="max-w-6xl mx-auto flex justify-center">
-            <button
-              onClick={scrollToTop}
-              className="bg-rosey text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-rosey/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
-              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
-              title="Back to Top">
-              ↑ Back to Top
-            </button>
+      {/* Gallery */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {filteredFiles.map((file, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
+            onClick={() => setSelected(file)}>
+            <img
+              src={`${osrsRoseyrs.basePath}/${file}`}
+              alt={file}
+              className="object-contain mx-auto rounded-md max-w-full h-auto"
+              loading="lazy"
+            />
           </div>
-        </div>
-      </section>
-      <Footer colorScheme="pink" />
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }

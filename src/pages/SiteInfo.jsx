@@ -35,8 +35,8 @@ export default function SiteInfo() {
   }
 
   return (
-    <div className="h-screen w-full overflow-y-auto no-scrollbar flex justify-center items-start">
-      <div className="max-w-4xl mx-auto border border-gold rounded-xl shadow-2xl p-8 bg-dark/90 text-white my-10">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto border border-gold rounded-xl shadow-2xl p-8 bg-dark/90 text-white">
         <div className="markdown-body">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{mdContent}</ReactMarkdown>
         </div>

@@ -1,5 +1,5 @@
 // 📂 src/pages/graphics/Droptracker.jsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { droptrackerFiles } from '../../data/graphicsData';
 import { ArrowLeft } from 'lucide-react';
@@ -138,17 +138,7 @@ function FullscreenViewer({ selected, onClose, droptrackerFiles }) {
  */
 export default function Droptracker() {
   const [selected, setSelected] = useState(null);
-  const [showTopButton, setShowTopButton] = useState(false);
   const [activeFilters, setActiveFilters] = useState({ colors: [], style: null });
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const node = scrollRef.current;
-    if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 1000);
-    node.addEventListener('scroll', handleScroll);
-    return () => node.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const toggleColor = tag => {
     setActiveFilters(prev => {
@@ -223,122 +213,100 @@ export default function Droptracker() {
     </div>
   );
 
-  const scrollToTop = () => {
-    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
-      <section className="max-w-6xl mx-auto space-y-10">
-        <div className="flex items-center gap-4">
-          <Link to="/graphics" title="Back to Graphics Overview">
-            <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
-          </Link>
-          <h2 className="text-4xl font-heading text-gold">Droptracker UI Boards</h2>
-        </div>
-        {/* Fullscreen Viewer */}
-        {selected && (
-          <FullscreenViewer
-            selected={selected}
-            onClose={() => setSelected(null)}
-            droptrackerFiles={droptrackerFiles}
-          />
-        )}
-        {/* Showcase section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-          {/* Left: Text content */}
-          <div className="space-y-4">
-            <p className="text-base font-body text-white/80">
-              <strong className="text-gold">Droptracker.io</strong> is a powerful RuneLite plugin
-              that empowers Old School RuneScape players to visualize loot collection, manage
-              dynamic tracker boards for team events like Bingo, and integrate customizable UI
-              overlays that reflect clan identity. With themes ranging from rounded to square and
-              even RuneLite-native styles.
-            </p>
-            <p className="text-base font-body text-white/70">
-              Before my involvement, the visuals in Droptracker were far less refined. As the sole
-              designer behind all the current boards, I (known as '<strong>Smoke</strong>' in the
-              OSRS community) completely overhauled the plugin’s graphical and programmatic
-              aesthetics. I introduced dynamic color schemes based on dominant hues with intelligent
-              desaturation to ensure legibility, refined placement and scaling of UI elements, and
-              implemented dynamic sprite loading for coin values that display multiple visual
-              states. Every board and visual enhancement you see today is my original work,
-              transforming Droptracker into a truly intuitive and visually captivating tool.
-            </p>
-          </div>
-
-          {/* Right: Original board image */}
-          <div className="w-full max-w-md mx-auto flex flex-col items-center transition-transform hover:scale-105  ">
-            <img
-              src="/assets/images/droptracker_io_ui/Original_Board.png"
-              alt="Original Droptracker Board"
-              className="rounded-lg shadow-md w-auto max-w-full object-contain scale-100 cursor-zoom-in"
-              style={{ maxHeight: '420px' }}
-              onClick={() => setSelected('Original_Board.png')}
-            />
-            <span className="mt-2 text-sm text-white/60 font-body text-center">
-              <em>Original tracker board before redesign</em>
-            </span>
-          </div>
+    <section className="max-w-6xl mx-auto space-y-10">
+      <div className="flex items-center gap-4">
+        <Link to="/graphics" title="Back to Graphics Overview">
+          <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
+        </Link>
+        <h2 className="text-4xl font-heading text-gold">Droptracker UI Boards</h2>
+      </div>
+      {/* Fullscreen Viewer */}
+      {selected && (
+        <FullscreenViewer
+          selected={selected}
+          onClose={() => setSelected(null)}
+          droptrackerFiles={droptrackerFiles}
+        />
+      )}
+      {/* Showcase section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        {/* Left: Text content */}
+        <div className="space-y-4">
+          <p className="text-base font-body text-white/80">
+            <strong className="text-gold">Droptracker.io</strong> is a powerful RuneLite plugin that
+            empowers Old School RuneScape players to visualize loot collection, manage dynamic
+            tracker boards for team events like Bingo, and integrate customizable UI overlays that
+            reflect clan identity. With themes ranging from rounded to square and even
+            RuneLite-native styles.
+          </p>
+          <p className="text-base font-body text-white/70">
+            Before my involvement, the visuals in Droptracker were far less refined. As the sole
+            designer behind all the current boards, I (known as '<strong>Smoke</strong>' in the OSRS
+            community) completely overhauled the plugin’s graphical and programmatic aesthetics. I
+            introduced dynamic color schemes based on dominant hues with intelligent desaturation to
+            ensure legibility, refined placement and scaling of UI elements, and implemented dynamic
+            sprite loading for coin values that display multiple visual states. Every board and
+            visual enhancement you see today is my original work, transforming Droptracker into a
+            truly intuitive and visually captivating tool.
+          </p>
         </div>
 
-        {/* Centered Sample Populated Boards image */}
-        <div className="w-full flex flex-col items-center pt-6 transition-transform hover:scale-105">
+        {/* Right: Original board image */}
+        <div className="w-full max-w-md mx-auto flex flex-col items-center transition-transform hover:scale-105  ">
           <img
-            src="/assets/images/droptracker_io_ui/Sample_Populated_Boards.png"
-            alt="Sample Populated Boards"
-            className="rounded-lg shadow-md object-contain scale-100 cursor-zoom-in"
-            style={{ maxHeight: '420px', maxWidth: '100%' }}
-            onClick={() => setSelected('Sample_Populated_Boards.png')}
+            src="/assets/images/droptracker_io_ui/Original_Board.png"
+            alt="Original Droptracker Board"
+            className="rounded-lg shadow-md w-auto max-w-full object-contain scale-100 cursor-zoom-in"
+            style={{ maxHeight: '420px' }}
+            onClick={() => setSelected('Original_Board.png')}
           />
           <span className="mt-2 text-sm text-white/60 font-body text-center">
-            <em>Populated board with styled layout and sample data</em>
+            <em>Original tracker board before redesign</em>
           </span>
         </div>
+      </div>
 
-        <div className="space-y-2">
-          <div className="text-gold font-heading text-lg">Colors</div>
-          {renderColorButtons()}
-          <div className="text-gold font-heading text-lg">Style</div>
-          {renderStyleButtons()}
-          {(activeFilters.colors.length || activeFilters.style) && (
-            <button
-              onClick={clearFilters}
-              className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
-              Clear Filters
-            </button>
-          )}
-        </div>
+      {/* Centered Sample Populated Boards image */}
+      <div className="w-full flex flex-col items-center pt-6 transition-transform hover:scale-105">
+        <img
+          src="/assets/images/droptracker_io_ui/Sample_Populated_Boards.png"
+          alt="Sample Populated Boards"
+          className="rounded-lg shadow-md object-contain scale-100 cursor-zoom-in"
+          style={{ maxHeight: '420px', maxWidth: '100%' }}
+          onClick={() => setSelected('Sample_Populated_Boards.png')}
+        />
+        <span className="mt-2 text-sm text-white/60 font-body text-center">
+          <em>Populated board with styled layout and sample data</em>
+        </span>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {filteredFiles.map((file, i) => (
-            <img
-              key={i}
-              src={`${droptrackerFiles.basePath}/${file}`}
-              alt={file}
-              loading="lazy"
-              className="cursor-zoom-in transition-transform hover:scale-105 max-w-full"
-              onClick={() => setSelected(file)}
-            />
-          ))}
-        </div>
+      <div className="space-y-2">
+        <div className="text-gold font-heading text-lg">Colors</div>
+        {renderColorButtons()}
+        <div className="text-gold font-heading text-lg">Style</div>
+        {renderStyleButtons()}
+        {(activeFilters.colors.length || activeFilters.style) && (
+          <button
+            onClick={clearFilters}
+            className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
+            Clear Filters
+          </button>
+        )}
+      </div>
 
-        {/* Scroll to Top Button */}
-        <div
-          className={`fixed bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300 ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}`}>
-          <div className="max-w-6xl mx-auto flex justify-center">
-            <button
-              onClick={scrollToTop}
-              className="bg-gold text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-accent/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
-              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
-              title="Back to Top">
-              ↑ Back to Top
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {filteredFiles.map((file, i) => (
+          <img
+            key={i}
+            src={`${droptrackerFiles.basePath}/${file}`}
+            alt={file}
+            loading="lazy"
+            className="cursor-zoom-in transition-transform hover:scale-105 max-w-full"
+            onClick={() => setSelected(file)}
+          />
+        ))}
+      </div>
+    </section>
   );
 }

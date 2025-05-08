@@ -7,25 +7,28 @@ export default defineConfig({
     react(),
     viteStaticCopy({
       targets: [
-        { src: '*.cjs', dest: 'assets' },
-        { src: '*.js', dest: 'assets' }
+        { src: '*.cjs', dest: '.' },
+        { src: '*.js', dest: '' }
       ]
     })
   ],
   base: '/',
   build: {
     outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
     rollupOptions: {
       output: {
-        // Manual chunking splits vendor code from app code
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('framer-motion')) {
+              return 'framer-motion';
+            }
             return id.toString().split('node_modules/')[1].split('/')[0];
           }
         }
       }
     },
-    // Adjust warning limit if necessary
     chunkSizeWarningLimit: 600
   },
   server: {

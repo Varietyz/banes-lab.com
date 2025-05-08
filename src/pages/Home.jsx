@@ -44,8 +44,8 @@ export default function Home() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="h-screen overflow-y-auto no-scrollbar px-4 sm:px-6 lg:px-8">
-        <section className="w-full px-4 py-20 md:py-32 text-center">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <section className="w-full text-center">
           <m.div
             ref={headerRef}
             initial="hidden"
@@ -126,7 +126,7 @@ export default function Home() {
                 transition={{ duration: totalDuration, ease: 'backOut' }}
                 className="flex-shrink-0 mb-4 md:mb-0 mx-auto md:mx-0">
                 <img
-                  src="/assets/images/real_life/beach.jpg"
+                  src="/assets/images/real_life/beach.png"
                   alt="Bane's Portrait"
                   className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-gold shadow-md object-cover"
                 />

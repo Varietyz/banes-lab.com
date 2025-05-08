@@ -139,7 +139,6 @@ function FullscreenViewer({ selected, onClose, enigmaRoot }) {
  */
 export default function Enigma() {
   const [selected, setSelected] = useState(null);
-  const [showTopButton, setShowTopButton] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
   const scrollRef = useRef(null);
   const [sortedFiles, setSortedFiles] = useState([]);
@@ -199,9 +198,7 @@ export default function Enigma() {
 
     fetchImageSizes();
     if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 200);
-    node.addEventListener('scroll', handleScroll);
-    return () => node.removeEventListener('scroll', handleScroll);
+    return () => {};
   }, [enigmaRoot.files]);
 
   const toggleTag = tag => {
@@ -219,131 +216,107 @@ export default function Enigma() {
 
   const filteredFiles = sortedFiles.filter(matchesTags);
 
-  const scrollToTop = () => {
-    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
-      <section className="max-w-6xl mx-auto space-y-10 px-4">
-        {/* Header and Description Area */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="w-full lg:max-w-[55%]">
-            {' '}
-            {/* Adjusted the width to match the image */}
-            <div className="flex items-center gap-4">
-              <Link to="/graphics" title="Back to Graphics Overview">
-                <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
-              </Link>
-              <h2 className="text-4xl font-heading text-gold">Enigma Graphics</h2>
-            </div>
-            <div className="space-y-4 text-lg font-body text-white/80 mt-4">
-              <p>
-                The <span className="text-gold">Enigma</span> visuals are a showcase of my work for
-                an <span className="text-gold">Amateur Esport Organization</span> I used to run
-                online. These branded graphics were designed to establish a cohesive, professional
-                identity across the team's website, social media, and competitive events.
-              </p>
-              <p>
-                The color palette mirrors the <span className="text-gold">Varietyz</span> style with
-                the same bold <span className="text-gold">gold (#cea555)</span> and deep{' '}
-                <span className="text-gold">dark (#101010)</span> contrast, symbolizing prestige,
-                ambition, and excellence. The graphics aim to capture the organization's competitive
-                spirit, featuring dynamic banners, logos, event graphics, and animated visuals to
-                enhance the brand’s presence.
-              </p>
-              <p className="text-sm italic text-white/70">
-                The <span className="text-gold">Alfa Bravo</span> graphic was originally designed by
-                their team, but I took the initiative to animate it and sent it over. They ended up
-                adopting it as their official display avatar, recognizing the added impact and
-                fluidity it brought to their branding.
-              </p>
-            </div>
+    <section className="max-w-6xl mx-auto space-y-10 px-4">
+      {/* Header and Description Area */}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="w-full lg:max-w-[55%]">
+          {' '}
+          {/* Adjusted the width to match the image */}
+          <div className="flex items-center gap-4">
+            <Link to="/graphics" title="Back to Graphics Overview">
+              <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
+            </Link>
+            <h2 className="text-4xl font-heading text-gold">Enigma Graphics</h2>
           </div>
-
-          {/* Display Animated Banner */}
-          <div className="w-full lg:max-w-[40%] flex justify-center transition-transform">
-            {' '}
-            {/* Matching width for consistency */}
-            <img
-              src={`${enigmaRoot.basePath}/loading.gif`}
-              alt="Enigma Animated Loading"
-              className="rounded-xl shadow-md border border-gold max-w-full"
-              onClick={() => setSelected('loading.gif')}
-            />
+          <div className="space-y-4 text-lg font-body text-white/80 mt-4">
+            <p>
+              The <span className="text-gold">Enigma</span> visuals are a showcase of my work for an{' '}
+              <span className="text-gold">Amateur Esport Organization</span> I used to run online.
+              These branded graphics were designed to establish a cohesive, professional identity
+              across the team's website, social media, and competitive events.
+            </p>
+            <p>
+              The color palette mirrors the <span className="text-gold">Varietyz</span> style with
+              the same bold <span className="text-gold">gold (#cea555)</span> and deep{' '}
+              <span className="text-gold">dark (#101010)</span> contrast, symbolizing prestige,
+              ambition, and excellence. The graphics aim to capture the organization's competitive
+              spirit, featuring dynamic banners, logos, event graphics, and animated visuals to
+              enhance the brand’s presence.
+            </p>
+            <p className="text-sm italic text-white/70">
+              The <span className="text-gold">Alfa Bravo</span> graphic was originally designed by
+              their team, but I took the initiative to animate it and sent it over. They ended up
+              adopting it as their official display avatar, recognizing the added impact and
+              fluidity it brought to their branding.
+            </p>
           </div>
         </div>
 
-        {/* Fullscreen Viewer */}
-        {selected && (
-          <FullscreenViewer
-            selected={selected}
-            onClose={() => setSelected(null)}
-            enigmaRoot={enigmaRoot}
+        {/* Display Animated Banner */}
+        <div className="w-full lg:max-w-[40%] flex justify-center transition-transform">
+          {' '}
+          {/* Matching width for consistency */}
+          <img
+            src={`${enigmaRoot.basePath}/loading.gif`}
+            alt="Enigma Animated Loading"
+            className="rounded-xl shadow-md border border-gold max-w-full"
+            onClick={() => setSelected('loading.gif')}
           />
-        )}
-
-        {/* Tag Filters */}
-        <div className="space-y-4">
-          <div className="text-gold font-heading text-lg">Filter Tags</div>
-          <div className="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
-                  activeTags.includes(tag)
-                    ? 'bg-gold text-dark'
-                    : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
-                }`}>
-                {tag}
-              </button>
-            ))}
-          </div>
-          {activeTags.length > 0 && (
-            <button
-              onClick={clearTags}
-              className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
-              Clear Filters
-            </button>
-          )}
         </div>
+      </div>
 
-        {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredFiles.map((file, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
-              onClick={() => setSelected(file)}>
-              <img
-                src={`${enigmaRoot.basePath}/${file}`}
-                alt={file}
-                className="object-contain mx-auto rounded-md"
-                loading="lazy"
-              />
-            </div>
+      {/* Fullscreen Viewer */}
+      {selected && (
+        <FullscreenViewer
+          selected={selected}
+          onClose={() => setSelected(null)}
+          enigmaRoot={enigmaRoot}
+        />
+      )}
+
+      {/* Tag Filters */}
+      <div className="space-y-4">
+        <div className="text-gold font-heading text-lg">Filter Tags</div>
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => toggleTag(tag)}
+              className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
+                activeTags.includes(tag)
+                  ? 'bg-gold text-dark'
+                  : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
+              }`}>
+              {tag}
+            </button>
           ))}
         </div>
+        {activeTags.length > 0 && (
+          <button
+            onClick={clearTags}
+            className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
+            Clear Filters
+          </button>
+        )}
+      </div>
 
-        {/* Scroll to Top Button */}
-        <div
-          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
-    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-  `}>
-          <div className="max-w-6xl mx-auto flex justify-center">
-            <button
-              onClick={scrollToTop}
-              className="bg-gold text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-accent/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
-              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
-              title="Back to Top">
-              ↑ Back to Top
-            </button>
+      {/* Gallery */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        {filteredFiles.map((file, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
+            onClick={() => setSelected(file)}>
+            <img
+              src={`${enigmaRoot.basePath}/${file}`}
+              alt={file}
+              className="object-contain mx-auto rounded-md"
+              loading="lazy"
+            />
           </div>
-        </div>
-      </section>
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }

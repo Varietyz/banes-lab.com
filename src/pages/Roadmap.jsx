@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaWrench,
@@ -218,18 +217,6 @@ const roadmapData = [
  *
  */
 export default function Roadmap() {
-  const [showTopButton, setShowTopButton] = useState(false);
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    const node = scrollRef.current;
-    if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 2490);
-    node.addEventListener('scroll', handleScroll);
-    return () => node.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Variants for the vertical center line.
   const lineVariants = {
     hidden: { height: 0 },
@@ -248,14 +235,8 @@ export default function Roadmap() {
     })
   };
 
-  const scrollToTop = () => {
-    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth flex justify-center">
+    <div className="px-4 scroll-smooth flex justify-center">
       <section className="max-w-5xl w-full">
         {/* Page Heading */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading text-gold text-center mb-6">
@@ -327,7 +308,7 @@ export default function Roadmap() {
         </div>
 
         {/* Call-to-Action */}
-        <div className="pb-20 text-center mt-16 transform -translate-y-10">
+        <div className="text-center mt-16 transform -translate-y-10">
           {' '}
           {/* Moves down by 8 units */}
           <Link
@@ -335,22 +316,6 @@ export default function Roadmap() {
             className="px-6 py-3 bg-gold text-dark font-bold rounded-full shadow hover:bg-accent transition duration-300">
             Learn More About Me
           </Link>
-        </div>
-        <div className="pb-1"></div>
-
-        <div
-          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 transition-all duration-300
-    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-  `}>
-          <div className="max-w-6xl mx-auto flex justify-center">
-            <button
-              onClick={scrollToTop}
-              className="bg-gold text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-accent/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
-              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
-              title="Back to Top">
-              ↑ Back to Top
-            </button>
-          </div>
         </div>
       </section>
     </div>

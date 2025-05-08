@@ -1,4 +1,3 @@
-// src/components/chat/ChatBox.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useChat from './useChat';
@@ -15,12 +14,15 @@ export default function ChatBox({ channelId }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError] = useState('');
 
-  // Chat state (only used if authenticated)
+  // Input state
   const [input, setInput] = useState('');
-  const [inputHeight, setInputHeight] = useState(40);
-  const { messages, sendMessage, chatEndRef, addLocalMessage } = useChat(channelId);
+  // We keep setter here so ChatInput resizing calls don't break, but we don't use height directly
+  const [, setInputHeight] = useState(40);
 
-  // Check for token on mount (only confirmed tokens)
+  // Chat hook provides messages, sending, and ref for auto-scrolling in ChatMessages
+  const { messages, sendMessage, addLocalMessage } = useChat(channelId);
+
+  // Check for auth token on mount
   useEffect(() => {
     axios
       .get('https://ws.banes-lab.com/api/checkAuth', { withCredentials: true })
@@ -28,6 +30,7 @@ export default function ChatBox({ channelId }) {
       .catch(() => setIsAuthenticated(false));
   }, []);
 
+  // Handle a new message send
   const handleSendMessage = message => {
     if (!message.trim()) return;
     const safeMessage = message.trim();
@@ -38,20 +41,21 @@ export default function ChatBox({ channelId }) {
       channelId
     };
 
+    // Add locally for immediate UI
     addLocalMessage(newMessage);
-    setTimeout(() => {
-      chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-    const messageToSend = { ...newMessage };
-    delete messageToSend.timestamp;
-    sendMessage(messageToSend);
+
+    // Send to server (without timestamp)
+    const payload = { ...newMessage };
+    delete payload.timestamp;
+    sendMessage(payload);
+
+    // Clear input
     setInput('');
-    setInputHeight(40);
   };
 
   return (
     <section className="w-full max-w-4xl rounded-xl mt-12 relative">
-      {/* If not authenticated, show the OAuth login modal */}
+      {/* OAuth login modal if not authenticated */}
       {!isAuthenticated && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
           <div className="w-full max-w-md p-6 bg-gray-800 rounded-xl shadow-lg">
@@ -63,13 +67,11 @@ export default function ChatBox({ channelId }) {
                 className="w-full py-2 bg-indigo-600 text-white font-bold rounded-full shadow hover:bg-indigo-700 transition duration-300">
                 🔐 Login with Discord
               </button>
-
               <button
                 onClick={() => (window.location.href = 'https://ws.banes-lab.com/api/auth/google')}
                 className="w-full py-2 bg-red-600 text-white font-bold rounded-full shadow hover:bg-red-700 transition duration-300">
                 🔐 Login with Google
               </button>
-
               <button
                 onClick={() => (window.location.href = 'https://ws.banes-lab.com/api/auth/github')}
                 className="w-full py-2 bg-gray-800 text-white font-bold rounded-full shadow hover:bg-gray-900 transition duration-300">
@@ -80,9 +82,9 @@ export default function ChatBox({ channelId }) {
         </div>
       )}
 
-      {/* Chat interface */}
+      {/* Chat UI */}
       <div className="flex flex-col">
-        <ChatMessages messages={messages} chatEndRef={chatEndRef} inputHeight={inputHeight} />
+        <ChatMessages messages={messages} />
         <ChatInput
           input={input}
           setInput={setInput}

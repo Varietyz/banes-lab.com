@@ -16,15 +16,49 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'pulse-ring': 'pulseRing 2s infinite',
+        'pulse-ring-sotw': 'pulseRingSotw 2s infinite',
+        'pulse-ring-botw': 'pulseRingBotw 2s infinite'
+      },
+      keyframes: {
+        pulseRing: {
+          '0%': { boxShadow: '0 0 0 0 rgba(255,255,255,0.7)' },
+          '40%': { boxShadow: '0 0 0 6px rgba(255,255,255,0)' },
+          '100%': { boxShadow: '0 0 0 0 rgba(255,255,255,0.7)' }
+        },
+        pulseRingSotw: {
+          '0%': { boxShadow: '0 0 0 0 rgba(255, 195, 32, 0.7)' },
+          '50%': { boxShadow: '0 0 0 6px rgba(153, 138, 0, 0)' },
+          '100%': { boxShadow: '0 0 0 0 rgba(255, 176, 57, 0.822)' }
+        },
+        pulseRingBotw: {
+          '0%': { boxShadow: '0 0 0 0 rgba(255, 32, 32, 0.7)' },
+          '50%': { boxShadow: '0 0 0 6px rgba(255, 32, 32, 0)' },
+          '100%': { boxShadow: '0 0 0 0 rgba(255, 32, 32, 0.7)' }
+        }
+      },
       colors: {
         gold: '#cea555',
-        dark: '#101010',
+        darken: '#2b2b2b',
+        graphite: '#414141',
+        dark: '#141414',
+        grey: '#747474',
+        beige: '#e6e6e6',
+        lightgrey: '#c2c2c2',
+        white: '#fafafa',
+        discord: '#5865F2',
         accent: '#cea555',
-        rosey: '#D66894'
+        rosey: '#D66894',
+        lotus: '#4eaac4'
       },
       fontFamily: {
         heading: ['Cinzel', 'serif'],
-        body: ['Montserrat', 'sans-serif']
+        body: ['Montserrat', 'sans-serif'],
+        righteous: ['Righteous', 'serif'],
+        kanit: ['Kanit', 'sans-serif'],
+        code: ['"Source Code Pro"', 'monospace'],
+        osrs: ['"RuneScape Bold"', 'monospace']
       },
       screens: {
         xs: '480px', // Extra small devices

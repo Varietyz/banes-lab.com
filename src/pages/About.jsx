@@ -32,7 +32,7 @@ export default function About() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
+      <div className="px-4">
         <m.section
           ref={ref}
           initial="hidden"

@@ -139,7 +139,6 @@ function FullscreenViewer({ selected, onClose, osrsVarietyz }) {
  */
 export default function Varietyz() {
   const [selected, setSelected] = useState(null);
-  const [showTopButton, setShowTopButton] = useState(false);
   const [activeTags, setActiveTags] = useState([]);
   const scrollRef = useRef(null);
   const [sortedFiles, setSortedFiles] = useState([]);
@@ -199,9 +198,8 @@ export default function Varietyz() {
 
     fetchImageSizes();
     if (!node) return;
-    const handleScroll = () => setShowTopButton(node.scrollTop > 200);
-    node.addEventListener('scroll', handleScroll);
-    return () => node.removeEventListener('scroll', handleScroll);
+
+    return () => {};
   }, [osrsVarietyz.files]);
 
   const toggleTag = tag => {
@@ -219,125 +217,101 @@ export default function Varietyz() {
 
   const filteredFiles = sortedFiles.filter(matchesTags);
 
-  const scrollToTop = () => {
-    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <div
-      ref={scrollRef}
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth">
-      <section className="max-w-6xl mx-auto space-y-10 px-4">
-        {/* Header and Description Area */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
-          <div className="max-w-[50%]">
-            {' '}
-            {/* Adjusted the width to match the image */}
-            <div className="flex items-center gap-4">
-              <Link to="/graphics" title="Back to Graphics Overview">
-                <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
-              </Link>
-              <h2 className="text-4xl font-heading text-gold">Varietyz Graphics</h2>
-            </div>
-            <div className="space-y-4 text-base sm:text-lg lg:text-xl font-body text-white/80 mt-4">
-              <p>
-                The <span className="text-gold">Varietyz</span> visuals are all about that clean,
-                polished look that keeps everything feeling top-tier. I went all-in on consistency,
-                making sure the gold and dark theme stays sharp and professional across the board.
-                That <span className="text-gold">gold (#cea555)</span> and dark (#101010) combo?
-                It's all about giving off that prestige and sophistication while keeping it timeless
-                and modern.
-              </p>
-              <p>
-                I've built everything to feel cohesive and high-quality. Clean lines, subtle
-                gradients, and sharp borders make each piece pop, while maintaining alignment and
-                precision throughout. Every graphic feels connected, keeping the whole brand
-                experience intact.
-              </p>
-            </div>
+    <section className="max-w-6xl mx-auto space-y-10 px-4">
+      {/* Header and Description Area */}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
+        <div className="max-w-[50%]">
+          {' '}
+          {/* Adjusted the width to match the image */}
+          <div className="flex items-center gap-4">
+            <Link to="/graphics" title="Back to Graphics Overview">
+              <ArrowLeft size={36} className="text-gold hover:text-accent transition" />
+            </Link>
+            <h2 className="text-4xl font-heading text-gold">Varietyz Graphics</h2>
           </div>
-
-          {/* Display Animated Banner */}
-          <div className="w-full lg:w-[50%] flex justify-center transition-transform">
-            {' '}
-            {/* Matching width for consistency */}
-            <img
-              src={`${osrsVarietyz.basePath}/varietyz_banner_animated.gif`}
-              alt="Varietyz Animated Banner"
-              className="rounded-lg shadow-md border border-gold max-w-full"
-              onClick={() => setSelected('varietyz_banner_animated.gif')}
-            />
+          <div className="space-y-4 text-base sm:text-lg lg:text-xl font-body text-white/80 mt-4">
+            <p>
+              The <span className="text-gold">Varietyz</span> visuals are all about that clean,
+              polished look that keeps everything feeling top-tier. I went all-in on consistency,
+              making sure the gold and dark theme stays sharp and professional across the board.
+              That <span className="text-gold">gold (#cea555)</span> and dark (#101010) combo? It's
+              all about giving off that prestige and sophistication while keeping it timeless and
+              modern.
+            </p>
+            <p>
+              I've built everything to feel cohesive and high-quality. Clean lines, subtle
+              gradients, and sharp borders make each piece pop, while maintaining alignment and
+              precision throughout. Every graphic feels connected, keeping the whole brand
+              experience intact.
+            </p>
           </div>
         </div>
 
-        {/* Fullscreen Viewer */}
-        {selected && (
-          <FullscreenViewer
-            selected={selected}
-            onClose={() => setSelected(null)}
-            osrsVarietyz={osrsVarietyz}
+        {/* Display Animated Banner */}
+        <div className="w-full lg:w-[50%] flex justify-center transition-transform">
+          {' '}
+          {/* Matching width for consistency */}
+          <img
+            src={`${osrsVarietyz.basePath}/varietyz_banner_animated.gif`}
+            alt="Varietyz Animated Banner"
+            className="rounded-lg shadow-md border border-gold max-w-full"
+            onClick={() => setSelected('varietyz_banner_animated.gif')}
           />
-        )}
-
-        {/* Tag Filters */}
-        <div className="space-y-4">
-          <div className="text-gold font-heading text-lg">Filter Tags</div>
-          <div className="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
-                  activeTags.includes(tag)
-                    ? 'bg-gold text-dark'
-                    : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
-                }`}>
-                {tag}
-              </button>
-            ))}
-          </div>
-          {activeTags.length > 0 && (
-            <button
-              onClick={clearTags}
-              className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
-              Clear Filters
-            </button>
-          )}
         </div>
+      </div>
 
-        {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {filteredFiles.map((file, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
-              onClick={() => setSelected(file)}>
-              <img
-                src={`${osrsVarietyz.basePath}/${file}`}
-                alt={file}
-                className="object-contain mx-auto rounded-md max-w-full h-auto"
-                loading="lazy"
-              />
-            </div>
+      {/* Fullscreen Viewer */}
+      {selected && (
+        <FullscreenViewer
+          selected={selected}
+          onClose={() => setSelected(null)}
+          osrsVarietyz={osrsVarietyz}
+        />
+      )}
+
+      {/* Tag Filters */}
+      <div className="space-y-4">
+        <div className="text-gold font-heading text-lg">Filter Tags</div>
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => toggleTag(tag)}
+              className={`px-3 py-1 text-sm font-semibold rounded-full border transition-all duration-200 ${
+                activeTags.includes(tag)
+                  ? 'bg-gold text-dark'
+                  : 'bg-dark border-gold text-gold hover:bg-accent hover:text-dark'
+              }`}>
+              {tag}
+            </button>
           ))}
         </div>
+        {activeTags.length > 0 && (
+          <button
+            onClick={clearTags}
+            className="mt-2 px-4 py-2 text-sm font-semibold text-dark bg-gold rounded-full hover:bg-accent transition">
+            Clear Filters
+          </button>
+        )}
+      </div>
 
-        {/* Scroll to Top Button */}
-        <div
-          className={`fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full px-4 sm:px-6 lg:px-8 transition-all duration-300
-    ${showTopButton ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'}
-  `}>
-          <div className="max-w-6xl mx-auto flex justify-center">
-            <button
-              onClick={scrollToTop}
-              className="bg-gold text-dark text-base font-bold px-10 py-2 shadow-lg hover:bg-accent/65 transition-all duration-300 animate-bounce w-full sm:w-[800px] mx-auto"
-              style={{ clipPath: 'polygon(50% 0, 50% 0, 100% 100%, 0 100%)' }}
-              title="Back to Top">
-              ↑ Back to Top
-            </button>
+      {/* Gallery */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {filteredFiles.map((file, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-center cursor-zoom-in transition-transform hover:scale-105"
+            onClick={() => setSelected(file)}>
+            <img
+              src={`${osrsVarietyz.basePath}/${file}`}
+              alt={file}
+              className="object-contain mx-auto rounded-md max-w-full h-auto"
+              loading="lazy"
+            />
           </div>
-        </div>
-      </section>
-    </div>
+        ))}
+      </div>
+    </section>
   );
 }

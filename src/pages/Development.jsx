@@ -76,7 +76,7 @@ export default function Development() {
 
   return (
     <motion.div
-      className="h-screen overflow-y-auto no-scrollbar px-4 py-20 md:py-32 scroll-smooth"
+      className="px-4 scroll-smooth"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
